@@ -5,4 +5,3 @@
 * 数学专业基础知识笔记，见文件夹 [Mathematics](./Mathematics)；
 * `Julia`、北太天元、`Python` 等科学计算语言的使用笔记；
 * 各种软件使用过程中遇到的问题及解决方案，见文件夹 [Applications](./Applications)；
-* 一款手机战旗游戏的关卡总结，见文件夹 [Games](./Games)。
