@@ -4,6 +4,30 @@ Author: 邱彼郑楠
 Date: 2023-03-10
 ---
 
+# WSL2 的安装
+
+根据微软的官方文档 [使用 WSL 在 Windows 上安装 Linux](https://learn.microsoft.com/zh-cn/windows/wsl/install#step-1---enable-the-windows-subsystem-for-linux), 现在在 Windows 上安装 WSL 只需要在 PowerShell 或 Windows 命令提示符使用如下命令
+
+```powershell
+wsl --install
+```
+
+运行如图所示
+
+![alt=WSL安装信息](../imgs/wsl_install_info.png)
+
+根据提示重启计算机后, WSL 会自动启动
+
+![alt=创建用户](../imgs/wsl_create_username.png)
+
+依次输入创建的用户名和密码, 就成功的登入了 WSL 系统.
+
+这个系统即使你退出终端后台仍在运行, 想要关闭需要在 PowerShell 或 Windows 命令提示符中输入
+
+```powershell
+wsl --shutdown
+```
+
 # 包管理工具
 
 WSL2 安装的是 Ubuntu 系统, 使用 `apt` 这一包管理工具.
