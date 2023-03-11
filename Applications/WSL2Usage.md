@@ -2,6 +2,7 @@
 Title: WSL2使用教程
 Author: 邱彼郑楠
 Date: 2023-03-10
+Modified: 2023-03-11
 ---
 
 # WSL2 的安装
@@ -22,11 +23,49 @@ wsl --install
 
 依次输入创建的用户名和密码, 就成功的登入了 WSL 系统.
 
-这个系统即使你退出终端后台仍在运行, 想要关闭需要在 PowerShell 或 Windows 命令提示符中输入
+# WSL 迁移
+
+WSL2 的磁盘文件默认存储在 C 盘, 位于 `C:\Users\UserName\AppData\Local\Packages\` 文件夹中, 可以从中找到一个含 `Ubuntu` 的文件夹. 当在 WSL 中安装大量软件时, 这对 C 盘的磁盘容量是一个巨大考验. 所以考虑将其迁移至 D 盘.
+
+如果 WSL 还在运行的话需要在 PowerShell 或 Windows 命令提示符中输入
 
 ```powershell
 wsl --shutdown
 ```
+
+关闭后可以通过 `wsl -l -v` 命令查看状态. 确定关闭了 WSL, 便可以导出子系统的文件
+
+```powershell
+wsl --export Ubuntu D:\WSL2tar
+```
+
+其中 `--export` 选项后的第一个参数表示子系统的名称, 这个可以在前面 `wsl -l -v` 这个命令中看到. 后面跟的路径名称便是导出文件存储的名称.
+
+导出成功后, 可以把原来的子系统注销
+
+```powershell
+wsl --unregister Ubuntu
+```
+
+注销成功, 再将子系统的文件导入到新的位置, 如 `D:\WSL2`
+
+```powershell
+wsl --import Ubuntu D:\WSL2 D:\WSL2tar
+```
+
+这样迁移过程就完成了, 重新启动便能运行.
+
+但这样直接打开子系统会以 `root` 用户运行, 如果之前不是使用的 `root` 用户会找不到原来的文件. 所以需要设置默认用户
+
+```powershell
+Ubuntu config --default-user username
+```
+
+现在打开终端, 便会回到之前使用的用户了.
+
+以上过程参考 [2.迁移wsl2子系统文件目录](https://juejin.cn/post/7024498662935904269).
+
+
 
 # 包管理工具
 
