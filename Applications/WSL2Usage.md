@@ -2,7 +2,7 @@
 Title: WSL2使用教程
 Author: 邱彼郑楠
 Date: 2023-03-10
-Modified: 2023-03-11
+Modified: 2023-03-14
 ---
 
 # WSL2 的安装
@@ -66,7 +66,6 @@ Ubuntu config --default-user username
 以上过程参考 [2.迁移wsl2子系统文件目录](https://juejin.cn/post/7024498662935904269).
 
 
-
 # 包管理工具
 
 WSL2 安装的是 Ubuntu 系统, 使用 `apt` 这一包管理工具.
@@ -84,34 +83,6 @@ apt-cache show package_name
 ```
 
 以上内容参考 [Ubuntu系统如何搜索要安装的软件包](https://blog.csdn.net/aaa123524457/article/details/96865138).
-
-# Fish 终端
-
-如果不要求安装最新版的 Fish, 使用
-
-```bash
-sudo apt-get install fish
-```
-
-即可. 安装的是 3.3.1 版本, 目前 [官网](https://fishshell.com/) 最新版本是 3.6.0.
-
-## 设置 Fish Shell 为默认 Shell
-
-使用 `chsh` 命令可以设置默认 Shell
-
-```bash
-chsh -s /usr/bin/fish
-```
-
-重启终端, 此时打开的就是 Fish Shell.
-
-如果想要重新设置默认 Shell 为 Bash，使用类似的命令
-
-```bash
-chsh -s /usr/bin/bash
-```
-
-参考 [window安装 Ubuntu子系统 和 fish](https://blog.csdn.net/chengler/article/details/119613219).
 
 # USB 设备
 
