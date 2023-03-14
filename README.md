@@ -5,3 +5,4 @@
 * 数学专业基础知识笔记，见文件夹 [Mathematics](./Mathematics)；
 * `Julia`、北太天元、`Python` 等科学计算语言的使用笔记；
 * 各种软件使用过程中遇到的问题及解决方案，见文件夹 [Applications](./Applications)；
+* 发布在 [知乎](https://www.zhihu.com/people/kristophertsui) 和微信公众平台上的文章, 见文件夹 [ZhiHuBlogs](./ZhiHuBlogs);
