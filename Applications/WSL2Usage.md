@@ -2,7 +2,7 @@
 Title: WSL2使用教程
 Author: 邱彼郑楠
 Date: 2023-03-10
-Modified: 2023-03-14
+Modified: 2023-03-30
 ---
 
 # WSL2 的安装
@@ -103,3 +103,7 @@ sudo mount -t drvfs E: /mnt/e
 这样就可以在 WSL2 中访问 USB 设备了.
 
 这一部分内容参考 [WSL2挂载USB设备](https://blog.csdn.net/qq_59475883/article/details/123314000).
+
+# Error
+
+1. 错误代码 `Wsl/Service/CreateInstance/0x80040326` 导致无法正常启动子系统. 根据 [Issue #9867](https://github.com/microsoft/WSL/issues/9867), 在 PowerShell 中使用 `wsl --update` 更新子系统即可解决.
