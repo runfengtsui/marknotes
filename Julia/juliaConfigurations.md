@@ -2,8 +2,41 @@
 Title: Julia 基本配置
 Author: 邱彼郑楠
 Date: 2023-03-14
-Modified: 2023-04-01
+Modified: 2023-04-04
 ---
+
+# 安装
+
+如果使用 `apt` 包管理工具下载的版本过低, 可前往 [下载页面](https://julialang.org/downloads/) 查看最新版的 Julia, 复制最新版的下载地址下载,
+
+```shell
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.5-linux-x86_64.tar.gz
+```
+
+下载完成后, 使用 `tar -xvzf` 命令将其解压
+
+```shell
+tar -xvzf julia-1.8.5-linux-x86_64.tar.gz
+```
+
+`/opt` 目录是用来安装附加软件包, 将解压得到的 `julia-1.8.5` 文件加拷贝到 `/opt` 文件夹中
+
+```shell
+sudo cp -r julia-1.8.5 /opt/
+```
+
+最后一步, 建立 `/opt/julia-1.8.5/bin/julia` 的软链接
+
+```shell
+sudo ln -s /opt/julia-1.8.5/bin/julia /usr/local/bin/julia
+```
+
+这样就可以使用最新版的 `julia` 了.
+
+> **Remark**. 删除软链接可使用以下命令
+```shell
+sudo rm -rf /usr/local/bin/julia
+```
 
 # 环境变量
 ## 编辑器
