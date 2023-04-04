@@ -1,11 +1,12 @@
 ---
-Title: Ubuntu 系统 NeoVim 的安装与使用
+Title: NeoVim 的安装与配置教程
 Author: 邱彼郑楠
 Date: 2022-10-13
-Modified: 2023-03-14
+Modified: 2023-04-04
 ---
 
-# NeoVim的安装
+# 安装
+## Ubuntu系统
 
 使用 `sudo apt-get install neovim` 命令在 Ubuntu 系统上安装 NeoVim, 安装的版本比较老旧. 想要安装新版本的 NeoVim, 需要使用 PPA 方法安装.
 
@@ -29,18 +30,24 @@ sudo apt-get update
 
 更新完毕后, 使用 `sudo apt-get install neovim` 安装即可.
 
-# Neovim的更新
+## Windows系统
 
-如果已经安装有了 Neovim, 想要升级到最新版本, 可行的办法就是先将原版本卸载
+Windows 系统下, 在 [Releases](https://github.com/neovim/neovim/releases) 页面下载适合电脑的 `nvim-win64.zip` 压缩文件, 解压缩后, 直接可以运行里面的 `nvim.exe` 和 `nvim-qt.exe` 命令. 建议将解压缩后的文件夹添加到系统路径, 这样可以在任何位置直接使用.
+
+# 更新
+
+Windows 系统更新 NeoVim 只需要重新下载最新版本的 `nvim-win64.zip` 压缩文件, 替换掉原来的文件即可.
+
+Ubuntu 系统的 NeoVim 升级到最新版本, 可行的办法就是先将原版本卸载
 
 ```bash
 sudo apt-get uninstall neovim
 sudo apt-get uninstall neovim-runtime
 ```
 
-然后按照 [Neovim 的安装](#Neovim的安装) 的步骤重新安装即可.
+然后按照 [安装](#Ubuntu系统) 的步骤重新安装即可.
 
-# NeoVim 的基本配置
+# 教程
 
 在 NeoVim 中，有一组函数可以设置 Vim 属性，分别为
 
