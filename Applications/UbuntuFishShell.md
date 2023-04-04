@@ -32,3 +32,6 @@ chsh -s /usr/bin/bash
 
 参考 [window安装 Ubuntu子系统 和 fish](https://blog.csdn.net/chengler/article/details/119613219).
 
+# 配置文件
+
+* 添加环境变量 `set -x PATH path $PATH`
