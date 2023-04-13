@@ -2,27 +2,29 @@
 Title: Julia 语言读书笔记
 Author: 邱彼郑楠
 Date: 2023-04-01
-Modified: 2023-04-05
+Modified: 2023-04-06
 ---
 
 # Julia 1.0 Programming Second Edition (Ivo Balbaert)
 
 1. The code in `.juliarc.jl` will be run whenever you start a Julia session.
-* `C:\Users\username\.juliarc.jl` on Windows;
-* `~/.juliarc.jl` on OS X;
-* `/home/.juliarc.jl` on Ubuntu.
+    * `C:\Users\username\.juliarc.jl` on Windows;
+    * `~/.juliarc.jl` on OS X;
+    * `/home/.juliarc.jl` on Ubuntu.
 
 2. Julia works with an LLVM JIT compiler framework that is used for JIT compiler framework.
-* The first time you run a Julia function, it is parsed, and the types are inferred. Then, LLVM code is geneerated by the JIT compiler, which is then optimized and compiled down to native code.
-* THe second time you run a Julia function, the native code that's already generated is called.
+    * The first time you run a Julia function, it is parsed, and the types are inferred. Then, LLVM code is geneerated by the JIT compiler, which is then optimized and compiled down to native code.
+    * THe second time you run a Julia function, the native code that's already generated is called.
 
 3. Julia code is fast because it generates specialized versions of functions for each data type.
 
 4. Everything in Julia is an expression.
 
-5. Names of variables are case-sensitive.
-* Lowercase is used with multiple words separated by an underscore.
-* The names of types begin with a capital letter, and if necessary, the word separation is shown with Came-Case, such as BigFloat or AbstractArray.
+5. Names of variables are case-sensitive. Lowercase is used with multiple words separated by an underscore.
+
+    The names of types begin with a capital letter, and if necessary, the word separation is shown with Came-Case, such as BigFloat or AbstractArray.
+
+    Function names are in lower-case. They can contain Unicode characters.
 
 6. In Julia, all lines between `#=` and `=#` are treated as a comment.
 
@@ -48,12 +50,12 @@ Modified: 2023-04-05
 # Interactive Visualization and Plotting with Julia (Diego Javier Zea)
 
 1. Julia defines project environments using two files.
-* `Project.toml` file that stores the set of dependencies.
-* `Manifest.toml` file that stores the exact version of all the packages and their dependencies.
+    * `Project.toml` file that stores the set of dependencies.
+    * `Manifest.toml` file that stores the exact version of all the packages and their dependencies.
 
 While the former is mandatory for any environment, the latter is optional.
 
 2. There are multiple options for dealing with project environments.
-* start `julia` in a given environment by using the `--project` argument.
-* change between environments using the `activate` command in `Pkg` mode.
-* run the `instantiate` command of `Pkg` mode to get all the needed packages when you first activate a non-empty environment on your system.
+    * start `julia` in a given environment by using the `--project` argument.
+    * change between environments using the `activate` command in `Pkg` mode.
+    * run the `instantiate` command of `Pkg` mode to get all the needed packages when you first activate a non-empty environment on your system.
