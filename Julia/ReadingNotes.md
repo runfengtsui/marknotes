@@ -2,7 +2,7 @@
 Title: Julia 语言读书笔记
 Author: 邱彼郑楠
 Date: 2023-04-01
-Modified: 2023-04-06
+Modified: 2023-04-15
 ---
 
 # Julia 1.0 Programming Second Edition (Ivo Balbaert)
@@ -46,6 +46,20 @@ Modified: 2023-04-06
 11. When dealing with large arrays, it is better to indicate the final number of elements from the start for the performance. Suppose you know beforehand that `arr2` will need $10^5$ elements, but not more. If you use `sizehint!(arr2, 10^5)`, you'll be able to `push!` at least $10^5$ elements without Julia having to reallocate and copy the data already added, leading ot a substantial improvement in performance.
 
 12. A `for ... in ` loop over an array is read-only, and you can not change elements of the array inside it. Instead, use an index i.
+
+13. All arguments to functions (with the exception of plain data such as numbers and chars) are passed by **reference**.
+
+14. **Anonymous functions** are mostly used when passing a function as an argument to another function.
+
+15. In Julia, a concrete version of a function for a specific combination of argument types is called a **method**.
+    
+    To define a new method for a function (also called **overloading**), just use the same function name but a different signature, that is, with different argument types.
+
+    A list of all the methods is stored in a virtual method table (vtable) on the function itself; methods do not belong to a particular type.
+
+    When a function is called, Julia will lookup in vtable at runtime to find which concrete method it should call, based on the types of all its arguments; this is Julia's **multiple dispatch mechanism**.
+
+    Note that only positional arguments are taken into account for multiple dispatch, and not keyword arguments.
 
 # Interactive Visualization and Plotting with Julia (Diego Javier Zea)
 
