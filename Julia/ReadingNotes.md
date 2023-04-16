@@ -2,7 +2,7 @@
 Title: Julia 语言读书笔记
 Author: 邱彼郑楠
 Date: 2023-04-01
-Modified: 2023-04-15
+Modified: 2023-04-16
 ---
 
 # Julia 1.0 Programming Second Edition (Ivo Balbaert)
@@ -28,7 +28,9 @@ Modified: 2023-04-15
 
 6. In Julia, all lines between `#=` and `=#` are treated as a comment.
 
-7. For utmost performance, you need to write type-stable code. Code is type-stable if the type of every variable does not vary over time.
+7. For utmost performance, you need to write **type-stable** code.
+    * Code is type-stable if the type of every variable does not vary over time.
+    * A function is type-stable if the return type(s) of all the output variables can be deduced from the types of the inputs.
 
 8. Overflow checking is not automatic, so an explicit check (for example, the result has the wrong sign) is needed when this can occur.
 
