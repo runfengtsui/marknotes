@@ -63,6 +63,10 @@ Modified: 2023-04-16
 
     Note that only positional arguments are taken into account for multiple dispatch, and not keyword arguments.
 
+16. Using short-circuit evaluation, statements with `if...only` are often written as follows:
+    * `if <cond> <statement> end` is written as `<cond> && <statement>`, which can be read as `<cond>` and then `<statement>`;
+    * `if !<cond> <statement> end` is written as `<cond> || <statement>`, which can be read as `<cond>` or else `<statement>`.
+
 # Interactive Visualization and Plotting with Julia (Diego Javier Zea)
 
 1. Julia defines project environments using two files.
