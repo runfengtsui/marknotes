@@ -71,6 +71,14 @@ push!(jarr, [1, 2, 3, 4])
 push!(jarr, [1, 2, 3])
 ```
 
+When working with arrays that contain arrays, it is important to realize that such an array contains **references** to the contained arrays, not their values. If you want to make a copy of an array, you can use the `copy()` function, but this produces only a **shallow** copy with references to the contained array. In order to make a complete copy of the values, we need to use the `deepcopy()` function.
+
+### Dictionaries
+
+In general, dictionaries that have type `{Any, Any}` tend to lead to lower performance since the JIT compiler does not know the exact type of the elements. Dictionaries used in performance-critical parts of the code should therefore be explicitly typed.
+
+When we get an `KeyError`, use the `get` method and provide a default value that is returned instead of the error, i.e., `get(d, key, 999)` returns 999.
+
 ## Function
 
 In Julia, a concrete version of a function for a specific combination of argument types is called a **method**.
@@ -105,6 +113,10 @@ Use the `I` function (from the `LinearAlgebra` package), i.e.,
 using LinearAlgebra
 idm = Matrix(1.0*I, 3, 3)
 ```
+
+## Linear Equations
+
+Suppose you want to solve the $AX=B$ equation, where $A,X$ and B are matrices. The obvious solution is `X = inv(A) * B`. However, this is actually not that goog. It is better to use the built-in solver, where `X = A \ B`. If you have to solve the $XA=B$ equation,, use the solution `X = B / A`. Solutions that use `/` and `\` are much more numerically stable, and also much faaster.
 
 # Regular expressions
 
