@@ -2,7 +2,7 @@
 Title: WSL2使用教程
 Author: 邱彼郑楠
 Date: 2023-03-10
-Modified: 2023-03-30
+Modified: 2023-04-27
 ---
 
 # WSL2 的安装
@@ -73,13 +73,13 @@ WSL2 安装的是 Ubuntu 系统, 使用 `apt` 这一包管理工具.
 想要查找可以安装的软件包可使用如下命令
 
 ```bash
-apt-cache search package_name
+apt search package_name
 ```
 
 如果想要显示软件包的详细信息, 使用如下命令
 
 ```bash
-apt-cache show package_name
+apt show package_name
 ```
 
 以上内容参考 [Ubuntu系统如何搜索要安装的软件包](https://blog.csdn.net/aaa123524457/article/details/96865138).
@@ -103,6 +103,40 @@ sudo mount -t drvfs E: /mnt/e
 这样就可以在 WSL2 中访问 USB 设备了.
 
 这一部分内容参考 [WSL2挂载USB设备](https://blog.csdn.net/qq_59475883/article/details/123314000).
+
+# Neovim
+
+[Neovim](./Neovim.md) 是一份 Neovim 的简易教程. 这里主要说明如何将 Neovim 中使用 `yy` 快捷键复制的内容添加到 Windows 系统的剪贴板中, 即 WSL2 中的 Neovim 和 Windows 剪贴板之间的通信.
+
+参考 [Wsl的nvim与Windows系统剪切板通信](https://zhuanlan.zhihu.com/p/450705959) 这一篇文章, 只需要将以下命令添加到配置文件中:
+
+```lua
+if vim.fn.has('wsl') then
+  vim.cmd [[
+  augroup Yank
+  autocmd!
+  autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
+  augroup END
+  ]]
+end
+```
+
+参考 [从零开始配置 vim(11)——插件管理](https://zhuanlan.zhihu.com/p/551941252) 这一篇文章, 将上述配置使用 Neovim 提供的 API 进行转换:
+
+```lua
+if vim.fn.has("wsl") then
+    local yank = vim.api.nvim_create_augroup("YANK", { clear = true })
+    vim.api.nvim_create_autocmd({ "TextYankPost " }, {
+        pattern = "*",
+        group = yank,
+        command = ":call system('/mnt/c/windows/system32/clip.exe ', @\")"
+    })
+end
+```
+
+这样就实现了 WSL2 中的 Neovim 与 Windows 剪贴板的通信.
+
+Neovim 的配置文件见 [WSL2Neovim](https://github.com/RunfengTsui/WSL2Neovim).
 
 # Error
 
