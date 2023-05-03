@@ -2,7 +2,7 @@
 Title: Fish 终端的安装与使用
 Author: 邱彼郑楠
 Date: 2023-03-14
-Modified: 2023-04-09
+Modified: 2023-05-03
 ---
 
 # Fish安装
@@ -40,3 +40,14 @@ chsh -s /usr/bin/bash
 # 配置文件
 
 * 添加环境变量 `set -x PATH path $PATH`
+
+# 脚本编程
+## 解释器路径
+
+每一个脚本文件需要指定解释器, 即必须将 `#!/path/to/fish` 放在文件的头部.
+
+## 自动获取路径
+
+一般脚本想要在任何地方都能调用, 可以使用绝对路径. 还有一种方法就是使用 `dirname` 命令自动获取路径. 关于 `dirname` 的使用可以参考 [Shell 小技巧之dirname命令的使用](https://blog.csdn.net/evglow/article/details/106260462).
+
+Bash 脚本往往和 `$0` 变量配合可以获取当前脚本所在的路径, 但是 Fish 中没有 `$0` 这个变量, 根据文档中 [special-variables](https://fishshell.com/docs/current/fish_for_bash_users.html#special-variables) 中的介绍, 变量 `status filename` 对应中 `$0` 变量. 所以对应于 Bash 中 `$(cd $(dirname $0); pwd)` 的 Fish 的用法是 `(cd (dirname (status filename)); pwd)`.
