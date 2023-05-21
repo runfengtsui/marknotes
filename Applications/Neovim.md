@@ -45,9 +45,23 @@ sudo apt-get uninstall neovim
 sudo apt-get uninstall neovim-runtime
 ```
 
-然后按照 [安装](#Ubuntu系统) 的步骤重新安装即可.
+然后按照 [安装](#Ubuntu系统) 的步骤重新安装即可. 实际上, 导入了 PPA 之后, 每次运行 `apt update`, Neovim 会自动更新. 不需要重新卸载再安装.
 
 # 教程
+## 快速注释
+
+首先说明一下可视化模式快捷键 `<Ctrl>+v` 在 Windows 电脑下失效的问题[^disablectrlv].
+[^disablectrlv]: [【vim】可视化模式快捷键 Ctrl + v 不起作用了](https://blog.csdn.net/henryhu712/article/details/123298423).
+
+由于 `<Ctrl>+v` 在 Windows 电脑下是粘贴功能, 该快捷键不起作用. 可以使用 `<Ctrl>+q` 快捷键进入 `Visual Block` 模式.
+
+下面将说明如何进行多行注释[^comment].
+[^comment]: [Vim 编辑器｜批量注释与批量取消注释](https://juejin.cn/post/7041783262544396296).
+
+`<Ctrl>+q` 快捷键进入 `Visual-Block` 模式, 方向键选择要注释的行, 按下大写字母 `I` 在行首插入, 输入注释的字符如 `//`, `#` 等, 最后按下 `<Esc>` 即可.
+
+相应地, 取消注释也需要进入 `Visual-Block` 模式, 方向键选中所有要取消注释行的注释字符, 按下 `x` 或者 `d` 删除这些字符即可.
+
 
 在 NeoVim 中，有一组函数可以设置 Vim 属性，分别为
 
