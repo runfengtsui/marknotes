@@ -2,10 +2,10 @@
 Title: tmux 使用教程
 Author: 邱彼郑楠
 Date: 2023-05-15
-Modified: 2023-05-16
+Modified: 2023-05-20
 ---
 
-# 常用命令[^key]
+# 外部命令[^key]
 [^key]: [Tmux的常用快捷键](https://zhuanlan.zhihu.com/p/137715607).
 ## 会话
 ### 新建会话
@@ -57,6 +57,14 @@ Modified: 2023-05-16
 tmux 默认是不支持鼠标操作的, 可以通过 `tmux set mouse on` 命令设定鼠标滚动支持[^mouse].
 [^mouse]: [tmux使用指南：5 :滚动与鼠标支持](https://blog.csdn.net/liumiaocn/article/details/104100000)
 
-# 配置文件
+# 配置
 
-如上面的鼠标支持的命令, 直接使用该命令只针对当前有效, 如果想要永久生效, 需要将其写入配置文件 `~/.tmux.conf` 中.
+Tmux 的用户配置文件为 `~/.tmux.conf`, 在修改了 `.tmux.conf` 文件之后, 需要重启 Tmux 才能生效, 即使用 `restart tmux` 命令; 或者在 Tmux 窗口中, 按下 `prefix` 键, 再按下 `:` 键输入以下命令:
+
+```
+source-file ~/.tmux.conf
+```
+
+详细的配置见 [配置文件]().
+
+配置参考 [Tmux配置](https://cloud.tencent.com/developer/article/2173566).
