@@ -2,12 +2,13 @@
 Title: WSL2使用教程
 Author: 邱彼郑楠
 Date: 2023-03-10
-Modified: 2023-05-03
+Modified: 2023-05-22
 ---
 
 # WSL2 的安装
 
-根据微软的官方文档 [使用 WSL 在 Windows 上安装 Linux](https://learn.microsoft.com/zh-cn/windows/wsl/install#step-1---enable-the-windows-subsystem-for-linux), 现在在 Windows 上安装 WSL 只需要在 PowerShell 或 Windows 命令提示符使用如下命令
+在 Windows 上安装 WSL[^wslinstall] 只需要在 PowerShell 或 Windows 命令提示符使用如下命令
+[^wslinstall]: [使用 WSL 在 Windows 上安装 Linux](https://learn.microsoft.com/zh-cn/windows/wsl/install#step-1---enable-the-windows-subsystem-for-linux)
 
 ```powershell
 wsl --install
@@ -25,7 +26,8 @@ wsl --install
 
 # WSL 迁移
 
-WSL2 的磁盘文件默认存储在 C 盘, 位于 `C:\Users\UserName\AppData\Local\Packages\` 文件夹中, 可以从中找到一个含 `Ubuntu` 的文件夹. 当在 WSL 中安装大量软件时, 这对 C 盘的磁盘容量是一个巨大考验. 所以考虑将其迁移至 D 盘.
+WSL2 的磁盘文件默认存储在 C 盘, 位于 `C:\Users\UserName\AppData\Local\Packages\` 文件夹中, 可以从中找到一个含 `Ubuntu` 的文件夹. 当在 WSL 中安装大量软件时, 这对 C 盘的磁盘容量是一个巨大考验. 所以考虑将其迁移至其他盘[^wslmv2D].
+[^wslmv2D]: [2.迁移wsl2子系统文件目录](https://juejin.cn/post/7024498662935904269).
 
 如果 WSL 还在运行的话需要在 PowerShell 或 Windows 命令提示符中输入
 
@@ -63,14 +65,12 @@ Ubuntu config --default-user username
 
 现在打开终端, 便会回到之前使用的用户了.
 
-以上过程参考 [2.迁移wsl2子系统文件目录](https://juejin.cn/post/7024498662935904269).
-
-
 # 包管理工具
 
 WSL2 安装的是 Ubuntu 系统, 使用 `apt` 这一包管理工具.
 
-想要查找可以安装的软件包可使用如下命令
+想要查找可以安装的软件包[^aptsearch] 可使用如下命令
+[^aptsearch]: [Ubuntu系统如何搜索要安装的软件包](https://blog.csdn.net/aaa123524457/article/details/96865138).
 
 ```bash
 apt search package_name
@@ -82,11 +82,10 @@ apt search package_name
 apt show package_name
 ```
 
-以上内容参考 [Ubuntu系统如何搜索要安装的软件包](https://blog.csdn.net/aaa123524457/article/details/96865138).
-
 # USB 设备
 
-我的电脑有两个盘, 平时使用 USB 设备存储一些文件, 但是 WSL2 默认不显示 USB 设备, 这需要挂载 USB 设备.
+我的电脑有两个盘, 平时使用 USB 设备存储一些文件, 但是 WSL2 默认不显示 USB 设备, 这需要挂载 USB 设备[^wslusb].
+[^wslusb]: [WSL2挂载USB设备](https://blog.csdn.net/qq_59475883/article/details/123314000).
 
 1. 首先建一个用来挂载 USB 设备里面文件的文件夹
 
@@ -102,13 +101,14 @@ sudo mount -t drvfs E: /mnt/e
 
 这样就可以在 WSL2 中访问 USB 设备了.
 
-这一部分内容参考 [WSL2挂载USB设备](https://blog.csdn.net/qq_59475883/article/details/123314000).
+# 编辑器
 
-# Neovim
+WSL2 中是可以直接输入 `code` 命令打开 VS Code 编辑器的 (Windows 下 VS Code 已安装). 这里使用 Neovim 作为主要的编辑器, 相关的笔记见 [Neovim](./Neovim.md). 
 
-[Neovim](./Neovim.md) 是一份 Neovim 的简易教程. 这里主要说明如何将 Neovim 中使用 `yy` 快捷键复制的内容添加到 Windows 系统的剪贴板中, 即 WSL2 中的 Neovim 和 Windows 剪贴板之间的通信.
+在 WSL2 中使用 Neovim 编辑文件最常遇到的问题就是 `yy` 命令复制的内容无法在 Windows 下使用, 反过来 Windows 下复制的内容虽然不能通过 `p` 粘贴, 但在插入模式下可以通过 `<Ctrl>+v` 进行粘贴. 所以需要解决的是 WSL2 中的 Neovim 和 Windows 剪贴板之间通信[^nvimyy2windows] 的问题.
+[^nvimyy2windows]: [Wsl的nvim与Windows系统剪切板通信](https://zhuanlan.zhihu.com/p/450705959).
 
-参考 [Wsl的nvim与Windows系统剪切板通信](https://zhuanlan.zhihu.com/p/450705959) 这一篇文章, 只需要将以下命令添加到配置文件中:
+解决两者的通信需要调用 Windows 的剪贴板将 `yy` 复制的内容传送到 Windows 的剪贴板中. 即使用如下的自动命令:
 
 ```lua
 if vim.fn.has('wsl') then
@@ -121,7 +121,8 @@ if vim.fn.has('wsl') then
 end
 ```
 
-参考 [从零开始配置 vim(11)——插件管理](https://zhuanlan.zhihu.com/p/551941252) 这一篇文章, 将上述配置使用 Neovim 提供的 API 进行转换:
+上述自动命令是通过 vim 配置的, 可以使用 Neovim 提供的 API[^nvimluautocmd] 将上述配置全部转换为使用 `lua` 语言配置.
+[^nvimluautocmd]: [从零开始配置 vim(11)——插件管理](https://zhuanlan.zhihu.com/p/551941252).
 
 ```lua
 if vim.fn.has("wsl") then
@@ -136,15 +137,16 @@ end
 
 这样就实现了 WSL2 中的 Neovim 与 Windows 剪贴板的通信.
 
-Neovim 的配置文件见 [WSL2Neovim](https://github.com/RunfengTsui/WSL2Neovim).
+Neovim 的配置文件见 [WSL2Neovim](https://gitee.com/runfengtsui/wsl2-neovim).
 
 # Error
 
 1. 错误代码 `Wsl/Service/CreateInstance/0x80040326` 导致无法正常启动子系统. 根据 [Issue #9867](https://github.com/microsoft/WSL/issues/9867), 在 PowerShell 中使用 `wsl --update` 更新子系统即可解决.
 
-2. `/usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link`
+2. `/usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link`[^notsymlink].
+[^notsymlink]: [/usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link](https://blog.csdn.net/u011715038/article/details/113733006)
 
-参考 [/usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link](https://blog.csdn.net/u011715038/article/details/113733006), `/usr/lib/wsl/lib/` 目录下都是文件而不是链接, 且该目录只读, 只能移到其他目录操作.
+`/usr/lib/wsl/lib/` 目录下都是文件而不是链接, 且该目录只读, 只能移到其他目录操作.
 
 ```bash
 cd /usr/lib/wsl
@@ -164,3 +166,4 @@ sudo ldconfig
 # [automount]
 # ldconfig = false
 ```
+
