@@ -101,7 +101,7 @@ sudo mount -t drvfs E: /mnt/e
 
 这样就可以在 WSL2 中访问 USB 设备了.
 
-# 编辑器
+# Editor
 
 WSL2 中是可以直接输入 `code` 命令打开 VS Code 编辑器的 (Windows 下 VS Code 已安装). 这里使用 Neovim 作为主要的编辑器, 相关的笔记见 [Neovim](./Neovim.md). 
 

@@ -51,7 +51,7 @@ sudo apt-get uninstall neovim-runtime
 
 然后按照 [安装](#Ubuntu系统) 的步骤重新安装即可. 实际上, 导入了 PPA 之后, 每次运行 `apt update`, Neovim 会自动更新. 不需要重新卸载再安装.
 
-# 教程
+# Tutorial
 ## 快速注释
 
 首先说明一下可视化模式快捷键 `<Ctrl>+v` 在 Windows 电脑下失效的问题[^disablectrlv].
