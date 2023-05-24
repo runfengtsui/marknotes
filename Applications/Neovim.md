@@ -2,17 +2,17 @@
 Title: NeoVim 的安装与配置教程
 Author: 邱彼郑楠
 Date: 2022-10-13
-Modified: 2023-05-23
+Modified: 2023-05-24
 ---
 
 # Install
-## Deepin
+## Windows
 
-深度操作系统可以在 [Releases](https://github.com/neovim/neovim/releases) 上下载 `nvim.appimage` 文件直接使用. 详细介绍见 [Neovim 的安装](./deepin.md#Neovim).
+Windows 系统下, 在 [Releases](https://github.com/neovim/neovim/releases) 页面下载适合电脑的 `nvim-win64.zip` 压缩文件, 解压缩后, 直接可以运行里面的 `nvim.exe` 和 `nvim-qt.exe` 命令. 建议将解压缩后的文件夹添加到系统路径, 这样可以在任何位置直接使用.
 
 ## Ubuntu
 
-使用 `sudo apt-get install neovim` 命令在 Ubuntu 系统上安装 NeoVim, 安装的版本比较老旧. 想要安装新版本的 NeoVim, 需要使用 PPA 方法安装.
+使用 `sudo apt install neovim` 命令在 Ubuntu 系统上安装 NeoVim, 安装的版本比较老旧. 想要安装新版本的 NeoVim, 需要使用 PPA 方法安装.
 
 导入 PPA, NeoVim PPA 团队提供了 `stable` 版和 `unstable` 版, 其中 `unstable` 版是最新版本.
 
@@ -34,22 +34,50 @@ sudo apt-get update
 
 更新完毕后, 使用 `sudo apt-get install neovim` 安装即可.
 
-## Windows
+## Deepin
 
-Windows 系统下, 在 [Releases](https://github.com/neovim/neovim/releases) 页面下载适合电脑的 `nvim-win64.zip` 压缩文件, 解压缩后, 直接可以运行里面的 `nvim.exe` 和 `nvim-qt.exe` 命令. 建议将解压缩后的文件夹添加到系统路径, 这样可以在任何位置直接使用.
+深度操作系统是基于 Debian 的, 可以通过 `apt` 包管理工具安装 Neovim, 但这样安装的 Neovim 版本太低, 当前版本号为 `0.3.4`.
+
+也可以像 Ubuntu 系统那样使用 PPA 添加源的方式来安装, 见 [Ubuntu 安装 Neovim](#Ubuntu). 但直接使用 `add-apt-repository` 是不安全的, 还不如直接更改源文件.
+
+没有合适的包管理工具安装的情况下, 选择直接从 [Releases](https://github.com/neovim/neovim/releases) 下载使用. 针对 Linux 可以下载两种文件, 一个是 `nvim.appimage`, 另一个是 `nvim-linux.tar.gz`. 现在更加推荐的是使用后缀名为 `appimage` 的文件, 可以免安装直接使用.
+
+* 首先, 下载 `nvim.appimage` 文件
+
+```bash
+aria2c -s16 -x16 -k1M https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+```
+
+* 第二步, 赋予文件 `nvim.appimage` 可执行权限:
+
+```bash
+chmod u+x nvim.appimage
+```
+
+这样, 就可以使用 `./nvim.appimage` 打开编辑器了.
+
+但文件名 `nvim.appimage` 比较长, 而且必须在其所在的文件夹下使用, 非常不方便. 需要设置软链接方便使用 (同时为了防止 `nvim.appimage` 被误删或找不到等情况, 固定将 `nvim.appimage` 放置在 `/opt` 目录下).
+
+```bash
+# 将 nvim.appimage 移至 /opt 文件夹
+sudo mv nvim.appimage /opt
+cd /opt
+# 增加可执行权限
+chmod u+x nvim.appimage
+# 设置软链接
+sudo ln -s $PWD/nvim.appimage /usr/bin/nvim
+```
+
+现在, 就可以在终端的任意地方使用 `nvim` 命令了. 如果觉得 `nvim` 这个命令还比较长, 可以配置缩写如 `alias vi="nvim"` 和 `alias vim="nvim"`. 这样, `vi` 和 `vim` 命令打开的都是 Neovim.
 
 # 更新
 
-Windows 系统更新 NeoVim 只需要重新下载最新版本的 `nvim-win64.zip` 压缩文件, 替换掉原来的文件即可.
+Ubuntu 系统的 NeoVim 如果是使用 PPA 方法安装, 则运行 `apt update` 和 `apt upgrade` 命令就会自动更新到最新版本.
 
-Ubuntu 系统的 NeoVim 升级到最新版本, 可行的办法就是先将原版本卸载
+否则, 不管是 Windows 系统还是深度操作系统, 都可以删除掉原来下载好的文件, 参照 [安装](#Install) 重新下载最新的文件放在原来的位置即可. 其中
 
-```bash
-sudo apt-get uninstall neovim
-sudo apt-get uninstall neovim-runtime
-```
-
-然后按照 [安装](#Ubuntu系统) 的步骤重新安装即可. 实际上, 导入了 PPA 之后, 每次运行 `apt update`, Neovim 会自动更新. 不需要重新卸载再安装.
+* Windows 系统对应于 `nvim-win64.zip` 文件;
+* 深度操作系统对应于 `nvim.appimage` 文件.
 
 # Tutorial
 ## 快速注释
