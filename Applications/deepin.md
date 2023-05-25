@@ -2,6 +2,7 @@
 Title: 深度操作系统
 Author: 邱彼郑楠
 Date: 2023-05-24
+Modified: 2023-05-25
 ---
 
 # 编辑器
@@ -79,5 +80,29 @@ sed -i "s@baltamatica.sh@baltamaticaC.sh@g" /usr/bin/baltamatica.sh
 
 * 新建脚本文件. 类似于 `/usr/bin/baltamatica.sh` 文件中的内容, 新建一个脚本文件去执行 `/opt/Baltamatica/bin/baltamaticaC.sh`, 同时将这个文件放在 `$PATH` 变量中存在的路径下即可. 这也解决了直接改写图形界面无法启动的问题.
 
+## Julia
+
+从 [官网](https://julialang.org/downloads/) 下载 Generic Linux on x86 的 64-bit 最新版的包. 如果网络比较慢, 可以考虑使用 [清华大学开源镜像](https://mirrors.tuna.tsinghua.edu.cn/julia-releases/bin/) 下载对应版本.
+
+下载完成后, 使用 `tar` 命令解压缩
+
+```bash
+tar xvzf julia-1.9.0-linux-x86_64.tar.gz
+```
+
+此时 `julia-1.9.0/bin/julia` 就可以直接运行 Julia. 为了在终端任意地方使用 Julia, 将文件夹 `julia-1.9.0` 全部移至 `/opt/` 目录下, 并建立软链接 `/usr/bin/julia` 指向 `/opt/julia-1.9.0/bin/julia`.
+
+```bash
+sudo mv julia-1.9.0 /opt/
+sudo ln -s /opt/julia-1.9.0/bin/julia /usr/bin/julia
+```
+
+## Python
+
+深度操作系统自带 Python 和 Python3, 其中 Python 是 2.7.16 版本, python3 是 3.7.3 版本.
+
+> **注意** 不要尝试更新系统自带的 Python 和 Python3, 这样会使得系统崩溃. 如果想要使用其他版本的 Python3, 可以使用虚拟环境隔离[^python].
+
 [^baltam]: woclass.[将 baltamatica.sh 指向命令行版本](https://www.yuque.com/woclass/bex/ubuntu#dBPzr)[OL].(2022-9-12)[2023-5-24].
+[^python]: Jack.[如何将python升级到最新版本](https://bbs.deepin.org/post/246332?postId=1399722)[OL].(2022-11-22)[2023-5.25].
 
