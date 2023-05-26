@@ -2,7 +2,7 @@
 Title: 深度操作系统
 Author: 邱彼郑楠
 Date: 2023-05-24
-Modified: 2023-05-25
+Modified: 2023-05-26
 ---
 
 # 编辑器
@@ -11,12 +11,7 @@ Modified: 2023-05-25
 不打算使用 Vim 编辑器, 考虑将其完全卸载, 使用 `apt` 包管理工具进行卸载:
 
 ```bash
-sudo apt remove vim
-sudo apt remove vim-runtime
-sudo apt remove vim-tiny
-sudo apt remove vim-common
-sudo apt remove vim-scripts
-sudo apt remove vim-doc
+sudo apt remove vim, vim-runtime, vim-tiny, vim-common, vim-scripts, vim-doc
 ```
 
 > **注意**: 如果只运行了 `sudo apt remove vim`, `vim` 命令无法运行, 但是 `vi` 命令还是可以运行的. 所以一定要完全卸载掉.
@@ -45,6 +40,20 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 安装成功后, 打开 Neovim, 命令模式下执行 `:PackerSync`, 安装所有插件. 插件安装完毕就配置完成了.
 
 > **注意**. Pyright 等的安装以及 `markdown-preview.nvim` 插件需要使用 `npm` 工具, 见 [npm 的安装](./npm.md#安装). 否则 Neovim 会提示报错.
+
+## 默认编辑器
+
+深度操作系统终端下的默认编辑器为 `nano`, 具体为 `/usr/bin/editor` 指向 `/etc/alternatives/editor`, 其中 `/etc/alternatives/editor` 又指向 `/usr/bin/nano`.
+
+使用 `update-alternatives` 来控制 `editor` 感觉是比较麻烦的, 可以参考 [debian修改默认编辑器](https://www.cnblogs.com/keithtt/p/7357995.html). 主要是使用 `update-alternatives --config editor` 命令显示只有 `nano` 一个选项 (最后我把 `nano` 卸载了, `/usr/bin/editor` 以及 `/etc/alternatives/editor` 这些都没有了).
+
+更改默认编辑器还可以通过在终端的配置文件中设置变量 `EDITOR` 来实现. 由于使用的是 [Fish Shell](./FishShell.md), 所以编辑 `~/.config/fish/config.fish` 文件, 增加语句
+
+```bash
+set -x EDITOR nvim
+```
+
+即可. 其实 `-x` 的意思是导出变量, 类似于 Bash 的 `export`.
 
 # 编程语言
 ## 北太天元
