@@ -2,7 +2,7 @@
 Title: Fish 终端的安装与使用
 Author: 邱彼郑楠
 Date: 2023-03-14
-Modified: 2023-05-26
+Modified: 2023-05-27
 ---
 
 # 安装
@@ -67,13 +67,13 @@ sudo apt install clang
 chsh -s /usr/bin/fish
 ```
 
-重启终端, 此时打开的就是 Fish Shell. 如果是自己编译的源码安装到了 `/usr/local/bin` 文件夹下, 则使用 `chsh -s /usr/local/bin/fish`.
-
-如果想要重新设置默认 Shell 为 Bash，使用类似的命令
+重启终端, 此时打开的就是 Fish Shell. 如果想要重新设置默认 Shell 为 Bash，使用相同的命令
 
 ```bash
 chsh -s /usr/bin/bash
 ```
+
+> 深度操作系统在默认终端使用 `chsh -s /usr/local/bin/fish` 是不起作用的. 这是因为打开终端后调用的是 `/usr/bin/fish`, 而安装的路径是 `/usr/local/bin/fish`, 所以可以通过设置软链接 `sudo ln -s /usr/local/bin/fish /usr/bin/fish` 来解决这个问题. 注意此时终端设置中 Shell 配置为 `$SHELL`.
 
 ## 配置文件
 
