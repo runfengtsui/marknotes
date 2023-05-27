@@ -75,6 +75,18 @@ chsh -s /usr/bin/bash
 
 > 深度操作系统在默认终端使用 `chsh -s /usr/local/bin/fish` 是不起作用的. 这是因为打开终端后调用的是 `/usr/bin/fish`, 而安装的路径是 `/usr/local/bin/fish`, 所以可以通过设置软链接 `sudo ln -s /usr/local/bin/fish /usr/bin/fish` 来解决这个问题. 注意此时终端设置中 Shell 配置为 `$SHELL`.
 
+## Oh-My-Fish
+
+`Oh-My-Fish` 是一个可以美化 Fish Shell 的一个工具, 根据 [安装指导](https://github.com/oh-my-fish/oh-my-fish#installation), 将 `oh-my-fish` 仓库克隆到本地, 使用 `/bin/install` 工具进行安装.
+
+```bash
+git clone git@github.com:oh-my-fish/oh-my-fish.git
+cd oh-my-fish
+bin/install --offline
+```
+
+可以通过 `omf list` 命令查看是否安装成功. 安装并改变主题, 安装插件, 更新包等都可以通过 `omf` 来进行, 详细参考 [Oh My Fish! 让你的 Shell 漂亮起来](https://zhuanlan.zhihu.com/p/35448750) 这一篇文章.
+
 ## 配置文件
 
 Fish Shell 的配置文件在 `~/.config/fish/config.fish`.
