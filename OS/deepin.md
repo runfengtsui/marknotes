@@ -2,7 +2,7 @@
 Title: 深度操作系统
 Author: 邱彼郑楠
 Date: 2023-05-24
-Modified: 2023-05-26
+Modified: 2023-06-05
 ---
 
 # 编辑器
@@ -18,7 +18,7 @@ sudo apt remove vim, vim-runtime, vim-tiny, vim-common, vim-scripts, vim-doc
 
 ## Neovim
 
-深度操作系统可以在 [Releases](https://github.com/neovim/neovim/releases) 上下载 `nvim.appimage` 文件直接使用 Neovim. 详细介绍见 [Neovim 的安装](./Neovim.md#Deepin).
+深度操作系统可以在 [Releases](https://github.com/neovim/neovim/releases) 上下载 `nvim.appimage` 文件直接使用 Neovim. 详细介绍见 [Neovim 的安装](../Applications/Neovim.md#Deepin).
 
 ## 配置
 
@@ -39,7 +39,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 
 安装成功后, 打开 Neovim, 命令模式下执行 `:PackerSync`, 安装所有插件. 插件安装完毕就配置完成了.
 
-> **注意**. Pyright 等的安装以及 `markdown-preview.nvim` 插件需要使用 `npm` 工具, 见 [npm 的安装](./npm.md#安装). 否则 Neovim 会提示报错.
+> **注意**. Pyright 等的安装以及 `markdown-preview.nvim` 插件需要使用 `npm` 工具, 见 [npm 的安装](../Applications/npm.md#安装). 否则 Neovim 会提示报错.
 
 ## 默认编辑器
 
@@ -47,7 +47,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 
 使用 `update-alternatives` 来控制 `editor` 感觉是比较麻烦的, 可以参考 [debian修改默认编辑器](https://www.cnblogs.com/keithtt/p/7357995.html). 主要是使用 `update-alternatives --config editor` 命令显示只有 `nano` 一个选项 (最后我把 `nano` 卸载了, `/usr/bin/editor` 以及 `/etc/alternatives/editor` 这些都没有了).
 
-更改默认编辑器还可以通过在终端的配置文件中设置变量 `EDITOR` 来实现. 由于使用的是 [Fish Shell](./FishShell.md), 所以编辑 `~/.config/fish/config.fish` 文件, 增加语句
+更改默认编辑器还可以通过在终端的配置文件中设置变量 `EDITOR` 来实现. 由于使用的是 [Fish Shell](../Applications/FishShell.md), 所以编辑 `~/.config/fish/config.fish` 文件, 增加语句
 
 ```bash
 set -x EDITOR nvim
@@ -112,6 +112,19 @@ sudo ln -s /opt/julia-1.9.0/bin/julia /usr/bin/julia
 
 > **注意** 不要尝试更新系统自带的 Python 和 Python3, 这样会使得系统崩溃. 如果想要使用其他版本的 Python3, 可以使用虚拟环境隔离[^python].
 
+### Python 开发包
+
+深度操作系统默认没有装 Python 的开发包, 因此如果使用 C++ 调用 Python 时是找不到 `Python.h` 这个头文件的. 这就需要自己安装 Python 的开发包[^Python.h].
+
+深度操作系统默认的 Python3 版本为 Python3.7, 选择安装 Python3.7 的开发包, 使用 `apt` 包管理工具进行安装:
+
+```bash
+sudo apt install python3.7-dev
+```
+
+安装得到的头文件都在目录 `/usr/include/python3.7m/` 下. 此时就可以使用 C++ 调用 Pyhton 程序了.
+
 [^baltam]: woclass.[将 baltamatica.sh 指向命令行版本](https://www.yuque.com/woclass/bex/ubuntu#dBPzr)[OL].(2022-9-12)[2023-5-24].
 [^python]: Jack.[如何将python升级到最新版本](https://bbs.deepin.org/post/246332?postId=1399722)[OL].(2022-11-22)[2023-5.25].
+[^Python.h]: 拾依H.[Python.h: No such file or directory错误解决](https://zhuanlan.zhihu.com/p/613210828)[OL].(2023-3-11)[2023-6-5].
 

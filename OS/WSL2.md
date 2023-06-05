@@ -2,7 +2,7 @@
 Title: WSL2使用教程
 Author: 邱彼郑楠
 Date: 2023-03-10
-Modified: 2023-05-22
+Modified: 2023-06-05
 ---
 
 # WSL2 的安装
@@ -103,7 +103,7 @@ sudo mount -t drvfs E: /mnt/e
 
 # Editor
 
-WSL2 中是可以直接输入 `code` 命令打开 VS Code 编辑器的 (Windows 下 VS Code 已安装). 这里使用 Neovim 作为主要的编辑器, 相关的笔记见 [Neovim](./Neovim.md). 
+WSL2 中是可以直接输入 `code` 命令打开 VS Code 编辑器的 (Windows 下 VS Code 已安装). 这里使用 Neovim 作为主要的编辑器, 相关的笔记见 [Neovim](../Applications/Neovim.md). 
 
 在 WSL2 中使用 Neovim 编辑文件最常遇到的问题就是 `yy` 命令复制的内容无法在 Windows 下使用, 反过来 Windows 下复制的内容虽然不能通过 `p` 粘贴, 但在插入模式下可以通过 `<Ctrl>+v` 进行粘贴. 所以需要解决的是 WSL2 中的 Neovim 和 Windows 剪贴板之间通信[^nvimyy2windows] 的问题.
 [^nvimyy2windows]: [Wsl的nvim与Windows系统剪切板通信](https://zhuanlan.zhihu.com/p/450705959).
@@ -137,7 +137,7 @@ end
 
 这样就实现了 WSL2 中的 Neovim 与 Windows 剪贴板的通信.
 
-Neovim 的配置文件见 [WSL2Neovim](https://gitee.com/runfengtsui/wsl2-neovim).
+Neovim 的配置文件见 [WSL2Neovim](https://gitee.com/runfengtsui/neovim-config).
 
 # Error
 
