@@ -32,5 +32,17 @@ Exception: Invalid linemode: devicons; should be filename/metatitle/permissions/
 
 根据 [Issue 64](https://github.com/alexanderjeurissen/ranger_devicons/issues/64), 提供了一种解决方案是将 `plugins/ranger_devicons` 文件夹下的 Python 文件都移动到 `plugins/` 目录下. 这样确实解决了问题.
 
+## 语法高亮
+
+在 `ranger` 下预览文件时, 只需要安装 `highlight` 就可以实现预览的语法高亮[^rangerconfig]
+
+```bash
+sudo apt install highlight
+```
+
+## 绘制边框
+
+在配置文件 `rc.conf` 中, 将 `set draw_borders none` 改为 `true` 即可实现每一层目录都显示一个方框[^rangerconfig].
+
 [^rangerconfig]: 赵赛赛.[ranger配置与使用](https://www.zssnp.top/2021/06/03/ranger/)[OL].(2022-9-18)[2023-6-8].
 
