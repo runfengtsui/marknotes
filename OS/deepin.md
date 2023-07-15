@@ -91,20 +91,7 @@ sed -i "s@baltamatica.sh@baltamaticaC.sh@g" /usr/bin/baltamatica.sh
 
 ## Julia
 
-从 [官网](https://julialang.org/downloads/) 下载 Generic Linux on x86 的 64-bit 最新版的包. 如果网络比较慢, 可以考虑使用 [清华大学开源镜像](https://mirrors.tuna.tsinghua.edu.cn/julia-releases/bin/) 下载对应版本.
-
-下载完成后, 使用 `tar` 命令解压缩
-
-```bash
-tar xvzf julia-1.9.0-linux-x86_64.tar.gz
-```
-
-此时 `julia-1.9.0/bin/julia` 就可以直接运行 Julia. 为了在终端任意地方使用 Julia, 将文件夹 `julia-1.9.0` 全部移至 `/opt/` 目录下, 并建立软链接 `/usr/bin/julia` 指向 `/opt/julia-1.9.0/bin/julia`.
-
-```bash
-sudo mv julia-1.9.0 /opt/
-sudo ln -s /opt/julia-1.9.0/bin/julia /usr/bin/julia
-```
+Julia 的安装与配置见 [Julia的安装与配置](../Julia/julia.md).
 
 ## Python
 
