@@ -2,13 +2,13 @@
 Title: NeoVim 的安装与配置教程
 Author: 邱彼郑楠
 Date: 2022-10-13
-Modified: 2023-05-24
+Modified: 2023-07-14
 ---
 
 # Install
 ## Windows
 
-Windows 系统下, 在 [Releases](https://github.com/neovim/neovim/releases) 页面下载适合电脑的 `nvim-win64.zip` 压缩文件, 解压缩后, 直接可以运行里面的 `nvim.exe` 和 `nvim-qt.exe` 命令. 建议将解压缩后的文件夹添加到系统路径, 这样可以在任何位置直接使用.
+Windows 系统下, 在 [Releases](https://github.com/neovim/neovim/releases) 页面下载适合电脑的 `nvim-win64.zip` 压缩文件, 解压缩后, 直接可以运行里面的 `nvim.exe` 或 `nvim-qt.exe` 命令. 建议将解压缩后的文件夹添加到系统路径, 这样可以在任何位置直接使用.
 
 ## Ubuntu
 
@@ -40,7 +40,49 @@ sudo apt-get update
 
 也可以像 Ubuntu 系统那样使用 PPA 添加源的方式来安装, 见 [Ubuntu 安装 Neovim](#Ubuntu). 但直接使用 `add-apt-repository` 是不安全的, 还不如直接更改源文件.
 
-没有合适的包管理工具安装的情况下, 选择直接从 [Releases](https://github.com/neovim/neovim/releases) 下载使用. 针对 Linux 可以下载两种文件, 一个是 `nvim.appimage`, 另一个是 `nvim-linux.tar.gz`. 现在更加推荐的是使用后缀名为 `appimage` 的文件, 可以免安装直接使用.
+没有合适的包管理工具安装的情况下, 有两种选择使用 NeoVim.
+
+### 源码编译
+
+采用源码编译安装 NeoVim 需要满足以下条件且有预置的工具:
+
+* `Clang` 或者 `GCC` 版本 4.9 以上;
+* `CMake` 版本 3.10 以上, 且有 `TLS/SSL` 支持.
+
+使用 `apt` 安装必要的依赖:
+
+```bash
+sudo apt install ninja-build gettext cmake unzip curl
+```
+
+克隆一份源码到本地, 进入文件夹后切换到 `stable` 版
+
+```git
+git clone git@github.com:neovim/neovim.git
+git checkout stable
+```
+
+使用 `make` 进行编译, 设置安装路径为 `/opt/nvim`
+
+```bash
+make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/opt/nvim
+```
+
+再使用 `make` 进行安装
+
+```bash
+sudo make install
+```
+
+最后在文件夹 `/opt/nvim/bin/` 下将 `nvim` 链接到 `/usr/bin` 文件夹下使得在任意地方都可以使用
+
+```bash
+sudo ln -s $PWD/nvim /usr/bin/nvim
+```
+
+### 便携版本
+
+可以直接从 [Releases](https://github.com/neovim/neovim/releases) 下载针对 Linux 的两种便携版本, 一个是 `nvim.appimage`, 另一个是 `nvim-linux.tar.gz`. 现在更加推荐的是使用后缀名为 `appimage` 的文件, 可以免安装直接使用.
 
 * 首先, 下载 `nvim.appimage` 文件
 
