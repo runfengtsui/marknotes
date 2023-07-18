@@ -95,9 +95,49 @@ Julia 的安装与配置见 [Julia的安装与配置](../Julia/julia.md).
 
 ## Python
 
-深度操作系统自带 Python 和 Python3, 其中 Python 是 2.7.16 版本, python3 是 3.7.3 版本.
+深度操作系统自带 Python 和 Python3, 其中 Python 是 2.7.16 版本, python3 是 3.7.3 版本. 目前 Python3 版本已经来到 3.12 系列, 3.7 已经显得有点老了, 所以需要安装新版本使用.
 
 > **注意** 不要尝试更新系统自带的 Python 和 Python3, 这样会使得系统崩溃. 如果想要使用其他版本的 Python3, 可以使用虚拟环境隔离[^python].
+
+> 选择使用 [Poetry](https://python-poetry.org/) 这一工具来管理多版本的 Python. 详细见 [Poetry 教程](../Python/Poetry.md).
+
+首先, 从 [官网](https://www.python.org/) 进入 [下载页面](https://www.python.org/downloads/) 下载所需版本的安装包.
+
+下载的文件是 `tgz` 格式, 解压缩
+
+```shell
+tar -xvf Python-3.11.4.tgz
+```
+
+进入解压缩后的文件夹, 运行 `./configure`, 同时设置安装目录 (`--prefix`), 设置共享 (`--enable-shared`) 以及开启优化 (`--enable-optimizations`).
+
+```shell
+cd Python-3.11.4
+./configure --prefix=/opt/python3.11 --enable-shared --enable-optimizations
+```
+
+然后, 使用 `make` 编译并进行安装
+
+```shell
+make
+sudo make install
+```
+
+但这样并不能运行起来 `Python3.11`, 会提示缺少文件 `libpython3.11.so.1.0`, 所以还需要将 `lib` 文件夹下的这一文件复制到 `/usr/lib/` 和 `/usr/lib64/` 文件夹中.
+
+```shell
+sudo cp /opt/python3.11/lib/libpython3.11.so.1.0 /usr/lib/
+sudo cp /opt/python3.11/lib/libpython3.11.so.1.0 /usr/lib64/
+```
+
+这样 Python3.11 就可以成功启动. 如果想要再任意地方启动 Python3.11, 还需要设置符号链接
+
+```shell
+sudo ln -s /opt/python3.11/bin/python3.11 /usr/bin/python3.11
+sudo ln -s /opt/python3.11/bin/pip3.11 /usr/bin/pip3.11
+```
+
+如果在编译过程中缺少其他依赖, 可以参考 [官方安装说明](https://devguide.python.org/getting-started/setup-building/index.html#install-dependencies) 或者 [在deepin系统下安装python3.8](https://bbs.deepin.org/post/254748).
 
 ### Python 开发包
 
