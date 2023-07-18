@@ -6,7 +6,7 @@ Modified: 2023-07-15
 ---
 
 # 安装
-# juliaup
+## juliaup
 
 目前官方推出了 `juliaup` 这一工具可以管理 Julia 的版本, 其下载方式如下:
 
@@ -24,7 +24,7 @@ curl -fsSL https://install.julialang.org | sh
 * `juliaup self update`: Juliaup 更新自身;
 * `juliaup self uninstall`: juliaup 卸载.
 
-# 可移植版本
+## 可移植版本
 
 如果使用 `apt` 包管理工具下载的版本过低, 可前往 [官网](https://julialang.org/downloads/) 下载 Generic Linux on x86 的 64-bit 最新版的包. 如果网络比较慢, 可以考虑使用 [清华大学开源镜像](https://mirrors.tuna.tsinghua.edu.cn/julia-releases/bin/) 下载对应版本.
 
@@ -57,8 +57,12 @@ sudo ln -s /opt/julia-1.9.0/bin/julia /usr/bin/julia
 sudo rm -rf /usr/local/bin/julia
 ```
 
-# 环境变量
-## 编辑器
+# 配置文件
+
+Julia 的配置文件为 `$HOME/.julia/config/startup.jl`, 以下环境变量等可以直接在 REPL 中运行, 也可以添加到配置文件中永久保存.
+
+## 环境变量
+### 编辑器
 
 Julia 内置一个 `edit()` 函数可以在 REPL 中使用编辑器打开文件, 可以通过环境变量来设置默认打开文件的编辑器
 
@@ -66,7 +70,7 @@ Julia 内置一个 `edit()` 函数可以在 REPL 中使用编辑器打开文件,
 ENV["JULIA_EDITOR"] = "nvim"
 ```
 
-## Pkg 源
+### Pkg 源
 
 默认情况下, `Pkg` 使用 `https://pkg.julialang.org` 获取 Julia 软件包. 但大多数情况下, 国内的访问速度比较慢, 推荐使用镜像来下载软件包和更新注册表:
 
@@ -74,7 +78,7 @@ ENV["JULIA_EDITOR"] = "nvim"
 ENV["JULIA_PKG_SERVER"] = "https://mirrors.tuna.tsinghua.edu.cn/julia"  # 使用清华镜像
 ```
 
-## Python
+### Python
 
 在安装 `PyCall` 软件包时, 需要指定 `Python` 环境:
 
@@ -82,6 +86,5 @@ ENV["JULIA_PKG_SERVER"] = "https://mirrors.tuna.tsinghua.edu.cn/julia"  # 使用
 ENV["PYTHON"] = "your/python/path"
 ```
 
-以上环境变量可以直接在 REPL 中设置. 而如果想要保持这个设置, 需要将其写入 `~/.julia/config/startup.jl` 文件中.
-
 更多的环境变量请参考 [环境变量](https://cn.julialang.org/JuliaZH.jl/latest/manual/environment-variables/index.html).
+
