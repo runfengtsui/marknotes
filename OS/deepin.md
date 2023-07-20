@@ -2,7 +2,7 @@
 Title: 深度操作系统
 Author: 邱彼郑楠
 Date: 2023-05-24
-Modified: 2023-06-05
+Modified: 2023-07-20
 ---
 
 # 编辑器
@@ -11,35 +11,24 @@ Modified: 2023-06-05
 不打算使用 Vim 编辑器, 考虑将其完全卸载, 使用 `apt` 包管理工具进行卸载:
 
 ```bash
-sudo apt remove vim, vim-runtime, vim-tiny, vim-common, vim-scripts, vim-doc
+apt -y remove vim vim-tiny vim-runtime vim-common
 ```
 
-> **注意**: 如果只运行了 `sudo apt remove vim`, `vim` 命令无法运行, 但是 `vi` 命令还是可以运行的. 所以一定要完全卸载掉.
+> **注意**: 如果只运行了 `apt remove vim`, `vim` 命令无法运行, 但是 `vi` 命令还是可以运行的, 因为 `vi` 命令对应的 `vim-tiny`. 至于 `vim-runtime` 和 `vim-common` 可以使用 `apt autoremove` 自动卸载.
 
-## Neovim
+## NeoVim
 
-深度操作系统可以在 [Releases](https://github.com/neovim/neovim/releases) 上下载 `nvim.appimage` 文件直接使用 Neovim. 详细介绍见 [Neovim 的安装](../Applications/Neovim.md#Deepin).
+深度操作系统可以在 [Releases](https://github.com/neovim/neovim/releases) 上下载 `nvim.appimage` 文件直接使用 NeoVim. 详细介绍见 [NeoVim 的安装](../Applications/Neovim.md#深度操作系统).
 
 ## 配置
 
-Neovim 的配置在 Windows 的子系统 [WSL2](./WSL2.md#Editor) 中已经做过, 相关的知识见 [Neovim 教程](./Neovim.md#Tutorial), 具体的配置文件在 [NeovimConfiguration](https://gitee.com/runfengtsui/neovim-config).
+NeoVim 的配置在 Windows 的子系统 [WSL2](./WSL2.md#Editor) 中已经做过, 相关的知识见 [NeoVim 教程](../Applications/Neovim.md#教程), 具体的配置文件在 [nvim](https://gitee.com/runfengtsui/dotfiles/tree/main/nvim).
 
-现在不需要重新配置. 首先将原来的配置文件克隆过来:
+现在不需要重新配置, 只需要将原来的配置文件克隆过来即可. 配置的过程在 [dotfiles](https://gitee.com/runfengtsui/dotfiles) 仓库的 `init.sh` 脚本.
 
-```git
-git clone git@gitee.com:runfengtsui/neovim-config.git ~/.config/nvim
-```
+配置成功后, 打开 NeoVim, 命令模式下执行 `:PackerSync`, 安装所有插件. 插件安装完毕就配置完成了.
 
-然后安装 Packer 插件管理器,
-
-```git
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-```
-
-安装成功后, 打开 Neovim, 命令模式下执行 `:PackerSync`, 安装所有插件. 插件安装完毕就配置完成了.
-
-> **注意**. Pyright 等的安装以及 `markdown-preview.nvim` 插件需要使用 `npm` 工具, 见 [npm 的安装](../Applications/npm.md#安装). 否则 Neovim 会提示报错.
+> **注意**. Pyright 等的安装以及 `markdown-preview.nvim` 插件需要使用 `npm` 工具, 见 [npm 的安装](../Applications/npm.md#安装). 否则 NeoVim 会提示报错.
 
 ## 默认编辑器
 
