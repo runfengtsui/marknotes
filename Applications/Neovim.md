@@ -2,7 +2,7 @@
 Title: NeoVim 的安装与配置教程
 Author: 邱彼郑楠
 Date: 2022-10-13
-Modified: 2023-07-16
+Modified: 2023-08-22
 ---
 
 # 安装
@@ -128,6 +128,23 @@ Ubuntu 系统的 NeoVim 如果是使用 PPA 方法安装, 则运行 `apt update`
 
 * Windows 系统对应于 `nvim-win64.zip` 文件;
 * 深度操作系统对应于 `nvim.appimage` 文件.
+
+# 学习配置
+
+- `vim.bo.filetype` 获取当前文件的文件类型. 如在当前文件命令模式下执行 `:lua vim.print(vim.bo.filetype)` 会得到 `markdown` 的结果.
+
+`filetype` is a buffer-local option, so you can access it with
+
+```lua
+vim.bo.filetype
+```
+
+- `vim.api.nvim_create_user_command()` can be used to create user commands. It takes three mandatory arguments:
+    - a string that is the name of the command (which must start with an uppercase letter to distinguish it from builtin commands);
+    - a string containing Vim commands or a Lua function that is executed when the command is invoked;
+    - a table with command-attributed;
+
+- `vim.api.nvim_command({command})` executes an ex command.
 
 # 教程
 ## 自动命令
