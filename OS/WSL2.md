@@ -82,6 +82,12 @@ apt search package_name
 apt show package_name
 ```
 
+升级某一具体的软件包, 可以使用如下命令:
+
+```bash
+apt install --only-upgrade package_name
+```
+
 # USB 设备
 
 我的电脑有两个盘, 平时使用 USB 设备存储一些文件, 但是 WSL2 默认不显示 USB 设备, 这需要挂载 USB 设备[^wslusb].
