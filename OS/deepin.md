@@ -2,7 +2,7 @@
 Title: 深度操作系统
 Author: 邱彼郑楠
 Date: 2023-05-24
-Modified: 2023-07-20
+Modified: 2023-11-02
 ---
 
 # 编辑器
@@ -140,7 +140,31 @@ sudo apt install python3.7-dev
 
 安装得到的头文件都在目录 `/usr/include/python3.7m/` 下. 此时就可以使用 C++ 调用 Pyhton 程序了.
 
+### 多版本下 tkinter 出错
+
+深度操作系统默认的 Python3 想要使用 `tkinter` 需要使用 `apt` 安装 `python3-tk`:
+
+```shell
+sudo apt install python3-tk
+```
+
+同时安装了多个版本的 Python, 从 `python3-tk` 的描述中可以看出其是对所有的 Python3 版本都应该支持的. 但是其他版本调用 `tkinter` 会出现以下错误:
+
+```
+import _tkinter # if this fails your Python may not be configured for TK
+importError: No module named _tkinter
+```
+
+出错的原因是没有安装 `Toolkit for Tcl and X11 (default version) - development files`[^tkinter]. 使用 `apt` 进行安装:
+
+```shell
+sudo apt install tk-dev
+```
+
+然后删除原来的版本, 重新按照 [Python](##Python) 的编译步骤重新编译即可正常使用 `tkinter` 了.
+
 [^baltam]: woclass.[将 baltamatica.sh 指向命令行版本](https://www.yuque.com/woclass/bex/ubuntu#dBPzr)[OL].(2022-9-12)[2023-5-24].
 [^python]: Jack.[如何将python升级到最新版本](https://bbs.deepin.org/post/246332?postId=1399722)[OL].(2022-11-22)[2023-5.25].
 [^Python.h]: 拾依H.[Python.h: No such file or directory错误解决](https://zhuanlan.zhihu.com/p/613210828)[OL].(2023-3-11)[2023-6-5].
+[^tkinter]: lovepython1314.[Deepin-linux下的多版本python间安装tkinter出错之分析](https://blog.csdn.net/weixin_40840880/article/details/103038818)[OL].(2019-11-12)[2023-11-2].
 
