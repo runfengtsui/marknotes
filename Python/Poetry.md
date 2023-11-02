@@ -2,7 +2,7 @@
 Title: Poetry
 Author: 邱彼郑楠
 Date: 2023-04-03
-Modified: 2023-07-18
+Modified: 2023-11-02
 ---
 
 # Poetry
@@ -15,6 +15,16 @@ curl -sSL https://install.python-poetry.org | python3 -
 ```
 
 最后可通过 `poetry --version` 查看版本检验安装成功.
+
+## 配置
+
+首先, 列出当前的配置可以使用 `config` 命令的 `--list` 选项, 即 `poetry config --list`.
+
+对于虚拟环境的路径, Poetry 默认将虚拟环境存储在 `{cache-dir}/virtualenvs` 文件夹下. 如果想要将虚拟环境放置在当前项目的根目录中, 需要配置环境变量 `POETRY_VIRTUALENVS_IN_PROJECT` 值为 `true`, 即使用 `config` 命令将 `virtualenvs.in-project` 设置为 `true`.
+
+```shell
+poetry config virtualenvs.in-project true
+```
 
 ## 教程
 
