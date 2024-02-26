@@ -2,21 +2,30 @@
 Title: Fish 终端的安装与使用
 Author: 邱彼郑楠
 Date: 2023-03-14
-Modified: 2023-05-27
+Modified: 2024-02-26
 ---
 
 # 安装
-
-最简单的安装方法是使用包管理工具, 如 `apt`, 即使用 `apt install fish` 命令安装. 但这样安装得到的不是最新版本. 可以从 [Fish Shell 官网](https://fishshell.com/) 或者 [Github 主页](https://github.com/fish-shell/fish-shell.git) 查看最新的版本.
-
 ## Ubuntu
 
-在 Ubuntu 系统, Fish Shell 维护团队给出了 [PPA description](https://launchpad.net/~fish-shell/+archive/ubuntu/release-3), 所以可以通过增加源的方式安装最新版本:
+在 Ubuntu 系统, 最简单的安装方法是使用包管理工具, 如 `apt`, 即使用 `apt install fish` 命令安装. 但这样安装得到的不是最新版本. 可以从 [Fish Shell 官网](https://fishshell.com/) 或者 [Github 主页](https://github.com/fish-shell/fish-shell.git) 查看最新的版本.
+
+Fish Shell 维护团队给出了 [PPA description](https://launchpad.net/~fish-shell/+archive/ubuntu/release-3), 所以可以通过增加源的方式安装最新版本:
 
 ```bash
 sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt update
 sudo apt install fish
+```
+
+## openEuler
+
+华为推出的 [openEuler 系统](http://www.openeuler.org/zh/), 对应的是 CentOS 7. 以根用户 `root` 运行下面命令:
+
+```
+cd /etc/yum.repos.d/
+wget https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_7/shells:fish:release:3.repo
+yum install fish
 ```
 
 ## 深度操作系统
