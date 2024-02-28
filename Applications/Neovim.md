@@ -2,7 +2,7 @@
 Title: NeoVim 的安装与配置教程
 Author: 邱彼郑楠
 Date: 2022-10-13
-Modified: 2023-08-22
+Modified: 2024-02-28
 ---
 
 # 安装
@@ -119,6 +119,13 @@ sudo ln -s $PWD/nvim.appimage /usr/bin/nvim
 ```
 
 现在, 就可以在终端的任意地方使用 `nvim` 命令了. 如果觉得 `nvim` 这个命令还比较长, 可以配置缩写如 `alias vi="nvim"` 和 `alias vim="nvim"`. 这样, `vi` 和 `vim` 命令打开的都是 Neovim.
+
+> 如果系统没有 `FUSE`, 是无法运行 `./nvim.appimage` 的, 则需要提取 appimage:
+> 
+> ```bash
+> ./nvim.appimage --appimage-extract
+> sudo ln -s $PWD/squashfs-root/usr/bin/nvim /usr/bin/nvim
+> ```
 
 ## 更新
 
