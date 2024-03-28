@@ -1,8 +1,7 @@
 ---
 Title: Git 使用教程
-Author: 邱彼郑楠
 Date: 2022-11-06
-Modified: 2023-07-16
+Modified: 2024-03-28
 ---
 [toc]
 # 配置
@@ -32,6 +31,13 @@ git config --global init.defaultBranch <name>
 
 ```git
 git config --add core.filemode false
+```
+
+文件名为中文显示乱码[^chinese]
+[^chinese]: XSIR. [Git 文件名为中文显示乱码处理](https://blog.xsir.com/Mac/Git-Wen-Jian-Ming-Wei-Zhong-Wen-Xian-Shi-Luan-Ma-Chu-Li.html) [OL].(2023-07-12)[2024-03-28].
+
+```git
+git config --global core.quotepath false
 ```
 
 # 创建版本库
