@@ -2,7 +2,7 @@
 Title: zathura 的编译安装与使用
 Author: 邱彼郑楠
 Date: 2024-04-01
-Modified: 2024-04-01
+Modified: 2024-06-13
 ---
 
 在 Deepin V20.9 版本系统中可以直接使用包管理工具 `apt` 来安装 [zathura](https://git.pwmt.org/pwmt/zathura.git): `apt install zathura`. 然而 Deepin V23 Beta3 版本系统中的包管理工具 `apt` 是没有 `zathura` 这个软件的, 究其原因, 应该是包管理工具中缺乏 [girara](https://git.pwmt.org/pwmt/girara.git) 这个依赖项. 所以需要先编译安装依赖项, 再安装 `zathura`.
@@ -18,10 +18,10 @@ git clone https://git.pwmt.org/pwmt/girara.git
 安装依赖
 
 ```bash
-# The following dependencies are required:
-apt install libgtk-3-dev libglib2.0-dev
+# The following dependencies are required: libglib2.0-dev 系统已有
+apt install libgtk-3-dev
 # The following dependencies are optional: configuration dumpint support
-apt install libjson-glib-1.0-0
+apt install libjson-glib-dev
 # For building, the following dependencies are also required:
 apt install meson gettext pkgconf
 # The following dependencies are optianal build-time only dependencies:
@@ -56,13 +56,13 @@ git clone https://git.pwmt.org/pwmt/zathura.git
 安装依赖:
 
 ```bash
-# The following dependencies are required:
-apt install libgtk-3-dev libglib2.0-dev libmagic-dev libjson-glib-1.0-0 libsqlite3-dev
+# The following dependencies are required: libgtk-3-dev libglib2.0-dev libjson-glib-dev 已安装 
+apt install libmagic-dev libsqlite3-dev
 # The following dependencies are optional:
 apt install libsynctex-dev libseccomp-dev
-apt install meson gettext pkgconf
-# The following dependencies are optional build-time only dependencies
-apt install check doxygen python3-sphinx
+# apt install meson gettext pkgconf
+# The following dependencies are optional build-time only dependencies: check doxygen 已安装
+apt install python3-sphinx
 ```
 
 同样在运行 `meson build` 时候发现缺少了 `appstream-util`, 将其补充上去, `apt install appstream-util`, 再依次运行 `ninja` 和 `ninja install`.
