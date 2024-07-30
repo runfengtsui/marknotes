@@ -5,14 +5,14 @@ Date: 2024-04-01
 Modified: 2024-06-13
 ---
 
-在 Deepin V20.9 版本系统中可以直接使用包管理工具 `apt` 来安装 [zathura](https://git.pwmt.org/pwmt/zathura.git): `apt install zathura`. 然而 Deepin V23 Beta3 版本系统中的包管理工具 `apt` 是没有 `zathura` 这个软件的, 究其原因, 应该是包管理工具中缺乏 [girara](https://git.pwmt.org/pwmt/girara.git) 这个依赖项. 所以需要先编译安装依赖项, 再安装 `zathura`.
+在 Deepin V20.9 版本系统中可以直接使用包管理工具 `apt` 来安装 [zathura](https://github.com/pwmt/zathura.git): `apt install zathura`. 然而 Deepin V23 Beta3 版本系统中的包管理工具 `apt` 是没有 `zathura` 这个软件的, 究其原因, 应该是包管理工具中缺乏 [girara](https://github.com/pwmt/girara.git) 这个依赖项. 所以需要先编译安装依赖项, 再安装 `zathura`.
 
 ## girara
 
 将源代码克隆到本地:
 
 ```git
-git clone https://git.pwmt.org/pwmt/girara.git
+git clone https://github.com/pwmt/girara.git
 ```
 
 安装依赖
@@ -50,7 +50,7 @@ apt install xvfb
 同样的步骤去编译 `zathura`:
 
 ```git
-git clone https://git.pwmt.org/pwmt/zathura.git
+git clone https://github.com/pwmt/zathura.git
 ```
 
 安装依赖:
@@ -72,7 +72,7 @@ apt install python3-sphinx
 * 一个是无法识别文档类型;
 * 一个是要求至少有一个插件;
 
-也就是 `zathura` 实际上只是一个图形界面, 真正去渲染打开文档的是 [zathura-pdf-poppler](https://git.pwmt.org/pwmt/zathura-pdf-poppler.git) 这个插件. 当然也可以安装其他插件打开更多类型的文档.
+也就是 `zathura` 实际上只是一个图形界面, 真正去渲染打开文档的是 [zathura-pdf-poppler](https://github.com/pwmt/zathura-pdf-poppler.git) 这个插件. 当然也可以安装其他插件打开更多类型的文档.
 
 ## zathura-pdf-poppler
 
@@ -85,3 +85,4 @@ apt install libpoppler-glib-dev
 接下来 `meson build && cd build` 和 `ninja && ninja install` 一套流程成功安装.
 
 再去打开文档, 成功打开!
+
