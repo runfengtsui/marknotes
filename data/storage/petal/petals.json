@@ -1,0 +1,11 @@
+[
+	{
+		"name": "GIT-SYNC-PLUGIN",
+		"displayName": "GIT SYNC PLUGIN",
+		"enabled": true,
+		"incompatible": false,
+		"js": "",
+		"css": "",
+		"i18n": null
+	}
+]
