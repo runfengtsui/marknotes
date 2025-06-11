@@ -2,12 +2,11 @@
 Title: Linux 脚本编程
 Author: 邱彼郑楠
 Date: 2023-07-15
-Modified: 2025-03-26
+Modified: 2024-03-05
 ---
 
 # 解压缩文件
 
-* 对于 `*.tar.gz` 文件, 使用 `tar -zxvf` 命令解压;
 * 对于 `*.tar.xz` 文件, 使用 `tar -xf` 命令解压;
 * 对于 `*.tar.bz2` 文件, 使用 `tar -jxf` 命令解压;
 

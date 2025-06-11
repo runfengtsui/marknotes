@@ -2,7 +2,7 @@
 Title: Fish 终端的安装与使用
 Author: 邱彼郑楠
 Date: 2023-03-14
-Modified: 2025-03-26
+Modified: 2024-02-26
 ---
 
 # 安装
@@ -47,7 +47,7 @@ sudo apt install build-essential ncurses-dev libncurses5-dev libpcre2-dev gettex
 然后, 下载或者克隆源码
 
 ```bash
-git clone https://github.com/fish-shell/fish-shell.git
+git clone git@github.com:fish-shell/fish-shell.git
 ```
 
 在 `fish-shell` 文件夹下创建 `build` 文件夹用来存放 `cmake` 之后得到的文件, 避免和 `fish-shell` 文件夹下的文件混乱.
@@ -65,17 +65,6 @@ sudo make install
 
 ```bash
 sudo apt install clang
-```
-
-# 卸载
-
-使用包管理器安装 `fish` 同样可以使用包管理器进行卸载. 如果自行编译软件, 可以使用以下脚本进行卸载 (默认安装路径为 `/usr/local`)[^uninstall]
-
-```bash
-rm -Rf /usr/local/etc/fish /usr/local/share/fish ~/.config/fish
-rm /usr/local/share/man/man1/fish*.1
-cd /usr/local/bin
-rm -f fish fish_indent
 ```
 
 # 配置
@@ -126,5 +115,4 @@ Fish Shell 的配置文件在 `~/.config/fish/config.fish`.
 Bash 脚本往往和 `$0` 变量配合可以获取当前脚本所在的路径, 但是 Fish 中没有 `$0` 这个变量, 根据文档中 [special-variables](https://fishshell.com/docs/current/fish_for_bash_users.html#special-variables) 中的介绍, 变量 `status filename` 对应中 `$0` 变量. 所以对应于 Bash 中 `$(cd $(dirname $0); pwd)` 的 Fish 的用法是 `(cd (dirname (status filename)); pwd)`.
 
 [^install]: 渔鳍.[用户友好的shell程序 —— Fish shell的安装和配置](https://zhuanlan.zhihu.com/p/488450129)[OL].(2022-3-27)[2023-5-26].
-[^uninstall]: fish-shell 4.0.1 documentation.[uninstalling-fish](https://fishshell.com/docs/current/faq.html#uninstalling-fish)[OL][2025-03-26].
 
