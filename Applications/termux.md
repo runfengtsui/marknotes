@@ -2,7 +2,7 @@
 Title: Android 平板安装 Linux 环境和虚拟桌面
 Author: 邱彼郑楠
 Date: 2025-07-15
-Modified: 2025-07-15
+Modified: 2025-07-16
 ---
 
 # 初始化 Termux
@@ -35,7 +35,7 @@ pkg install proot-distro        # PRoot 容器管理 Linux 发行版
 termux-setup-storage
 ```
 
-# 管理 Linux 发行版
+## 管理 Linux 发行版
 
 使用 `proot-distro` 安装 Deepin (beige) 发行版:
 
@@ -49,7 +49,7 @@ proot-distro install deepin
 proot-distro login deepin
 ```
 
-# 软件源管理
+## 软件源管理
 
 在容器中, 首先编辑 `/etc/apt/sources.list` 文件更换软件源, 选择清华源[^tsinghuadeepin]:
 
@@ -67,7 +67,7 @@ apt update
 apt dist-upgrade
 ```
 
-# 用户管理
+## 用户管理
 
 初始化容器默认为 `root` 用户, 先使用 `useradd` 命令添加新用户:
 
@@ -93,41 +93,56 @@ apt install sudo
 user    ALL=(ALL:ALL) ALL
 ```
 
-# 时区
+## 桌面环境
 
-时区配置文件为 `/etc/localtime`, 所有时区配置文件在 `/usr/share/zoneinfo` 中[^zoneinfo], 设置时区为上海:
-
-```bash
-sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-```
-
-# 桌面环境
-
-采用 `Xfce4` 桌面环境:
+使用 `Xfce4` 桌面环境:
 
 ```bash
 sudo apt install xfce4
 ```
 
-# 语言和输入法
+# 语言
+## 系统语言
 
-```bash
-sudo apt install locales
+便于编程, 设置系统语言为英文, 编辑 `/etc/default/locale` 文件[^language]:
+
+```
+LANG="en_US.UTF-8"
+LANGUAGE="en_US:en"
 ```
 
-首先安装中文字体 (文泉驿正黑, Google Noto 开源字体):
+## 英文目录
+
+如果家目录 (`/home/user`) 下的文件夹为中文路径, 可以通过修改 `~/.config/user-dirs.dirs` 文件更改为英文路径[^homenglish]:
+
+```
+XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DOWNLOAD_DIR="$HOME/Download"
+XDG_TEMPLATES_DIR="$HOME/Templates"
+XDG_PUBLICSHARE_DIR="$HOME/Public"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_MUSIC_DIR="$HOME/Music"
+XDG_PICTURES_DIR="$HOME/Pictures"
+XDG_VIDEOS_DIR="$HOME/Videos"
+```
+
+然后重命名对应的文件夹即可.
+
+## 中文字体
+但显示中文需要安装中文字体, 这里安装文泉驿正黑, Google Noto 开源字体等中文字体:
 
 ```bash
 sudo apt install fonts-wqy-zenhei fonts-noto-cjk
 ```
 
-使用 `fcitx5` 输入法:
+## 输入法
+对中文的输入需要使用 `fcitx5` 输入法:
 
 ```bash
 sudo apt install fcitx5 fcitx5-pinyin
 ```
 
-配置 `~/.profile` 环境变量:
+编辑 `~/.profile` 配置环境变量启用输入法:
 
 ```
 export XMODIFIERS=@im=fcitx
@@ -135,11 +150,12 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 ```
 
-设置系统语言为英文, 编辑 `/etc/default/locale` 文件[^language]:
+## 时区
 
-```
-LANG="en_US.UTF-8"
-LANGUAGE="en_US:en"
+时区配置文件为 `/etc/localtime`, 所有时区配置文件在 `/usr/share/zoneinfo` 中[^zoneinfo], 设置时区为上海:
+
+```bash
+sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
 # 常用软件
@@ -154,3 +170,4 @@ sudo apt install firefox
 [^useradd]: 人在旅途QvQ. Linux系统使用添加新用户后，没有用户目录（没有home）解决办法. CSDN: 2020.05.12[2025.07.15]. https://blog.csdn.net/u013053075/article/details/106070566.
 [^zoneinfo]: Alain. 使用Termux安装xfce4桌面,Android Studio, Code Server(VSCOode). Alain's Blog: 2023.10.19[2025.07.15]. https://www.alainlam.cn/?p=859.
 [^language]: gfdgd xi. 命令更换deepin语言. CSDN: 2020.08.15[2025.07.15]. https://blog.csdn.net/weixin_46403483/article/details/107806010.
+[^homenglish]: Teot. 修改Home下的目录为英文. 博客园: 2022.12.27[2025.07.16]. https://cnblogs.com/the-enjoyment-of-time/p/17008538.html.
