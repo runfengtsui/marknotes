@@ -18,7 +18,8 @@ pkg upgrade
 安装一些常用的命令:
 
 ```bash
-pkg install which make git
+pkg install which make
+pkg install git gh
 pkg install nodejs-lts neovim
 pkg install fish python tmux
 ```
@@ -46,6 +47,22 @@ termux-install-tl --location https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/t
 ```
 
 编译完成后的 PDF 文档可以使用 `termux-open` 命令打开外部程序阅读[^termux-open].
+
+## 安装 UDocker
+
+没有 `root` 权限的情况下是没有办法运行 `docker` 的, `udocker` 提供了无需权限的类 `docker` 命令:
+
+```bash
+pkg install udocker
+```
+
+例如, 可以拉取 Ubuntu 镜像:
+
+```bash
+udocker pull ubuntu:22.04
+```
+
+在容器中下载 Julia 的二进制压缩包, 便可以运行 Julia 程序.
 
 # PRoot 容器
 
