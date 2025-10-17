@@ -2,17 +2,52 @@
 Title: Android 平板安装 Linux 环境和虚拟桌面
 Author: 邱彼郑楠
 Date: 2025-07-15
-Modified: 2025-07-16
+Modified: 2025-10-17
 ---
 
 # 初始化 Termux
 
-首先, 使用 `pkg` 或 `apt` 更新软件包:
+首先, 使用 `termux-setup-storage` 申请存储权限,
+包管理工具为 `pkg` 或 `apt`, 使用 `termux-change-repo` 选择合适的仓库源后, 更新仓库:
 
 ```bash
 pkg update
 pkg upgrade
 ```
+
+安装一些常用的命令:
+
+```bash
+pkg install which make git
+pkg install nodejs-lts neovim
+pkg install fish python tmux
+```
+
+## 字体设置
+
+Termux 默认使用系统字体, 自定义字体的路径在 `~/.termux/font.ttf`[^termuxskills].
+下载 `NerdFont` 字体并将其拷贝到 `~/.termux/` 路径下并重命名为 `font.ttf`,
+就可以在 `NeoVim` 中看到图标文字了.
+
+也可以使用 `termux:styling` 插件来修改外观字体.
+
+## 安装 TexLive
+
+先使用 `pkg` 安装 `texlive` 的安装脚本:
+
+```bash
+pkg install texlive-installer
+```
+
+然后使用 `termux-install-tl` 安装脚本进行安装, 同时可以设置镜像进行加速[^textermux]:
+
+```bash
+termux-install-tl --location https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet
+```
+
+编译完成后的 PDF 文档可以使用 `termux-open` 命令打开外部程序阅读[^termux-open].
+
+# PRoot 容器
 
 启用 `x11` 和 `root` 仓库:
 
@@ -27,12 +62,6 @@ pkg install termux-x11-nightly  # Termux-x11 软件通信
 pkg install pulseaudio          # 声音支持
 pkg install virglrenderer       # 在 Termux 启用 GPU 加速的 PRoot 容器
 pkg install proot-distro        # PRoot 容器管理 Linux 发行版
-```
-
-申请存储权限:
-
-```bash
-termux-setup-storage
 ```
 
 ## 管理 Linux 发行版
@@ -166,6 +195,9 @@ sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 sudo apt install firefox
 ```
 
+[^termuxskills]: Arkria. Termux 的一些小技巧. Arkria's Blog: 2024.08.18[2025.10.17]. https://blog.akina.moe/2024/08/18/termux-skills/.
+[^textermux]: 长风_破晓. termux安装latex(texlive). CSDN: 2022.04.04[2025.10.17]. https://blog.csdn.net/m0_61117407/article/details/123952229.
+[^termux-open]: 芒果不忙. 在安卓手机上安装 LaTeX. 知乎: 2021.12.01[2025.10.17]: https://zhuanlan.zhihu.com/p/439870373.
 [^tsinghuadeepin]: 寻找繁星. Deepin使用笔记. 博客园: 2024.11.29[2025.07.15]. https://www.cnblogs.com/searchstar/p/18577813.
 [^useradd]: 人在旅途QvQ. Linux系统使用添加新用户后，没有用户目录（没有home）解决办法. CSDN: 2020.05.12[2025.07.15]. https://blog.csdn.net/u013053075/article/details/106070566.
 [^zoneinfo]: Alain. 使用Termux安装xfce4桌面,Android Studio, Code Server(VSCOode). Alain's Blog: 2023.10.19[2025.07.15]. https://www.alainlam.cn/?p=859.
