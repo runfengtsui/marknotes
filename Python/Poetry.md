@@ -2,7 +2,7 @@
 Title: Poetry
 Author: 邱彼郑楠
 Date: 2023-04-03
-Modified: 2023-11-02
+Modified: 2025-11-16
 ---
 
 # Poetry
@@ -30,13 +30,14 @@ poetry config virtualenvs.in-project true
 
 对于现有的项目, 通过 `poetry init` 命令初始化项目, 根据提示输入初始化设置, `poetry` 会在项目根目录生成 `pyproject.toml` 项目描述文件.
 
-将以下内容添加到项目描述文件 `pyproject.toml` 中, 配置 `poetry` 安装源
+可以使用 `source add` 命令添加第三方源, 如清华源:
 
-```toml
-[[tool.poetry.source]]
-name = "tsinghua.mirrors"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+```bash
+poetry source add --priority primary mirrors https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 ```
+
+其中 `--priority` 指定使用源的优先级, 有 `primary`, `supplemental` 和 `explicit`
+三种优先级, 优先级次序为首要 (`primary`), 补充 (`supplemental`) 和手动指定 (`explicit`).
 
 使用 `poetry add package_name` 命令将所需要的包添加到 `pyproject.toml` 的 `[[tool.poetry.dependencies]]` 下并安装, 如果想要卸载已安装的包, 则需使用 `poetry remove package_name` 同时 `pyproject.toml` 文件中也会删除.
 
