@@ -1,135 +1,89 @@
 ---
-Title: WSL2使用教程
+Title: WSL2 使用教程
 Author: 邱彼郑楠
 Date: 2023-03-10
-Modified: 2023-06-05
+Modified: 2025-11-24
 ---
 
 # WSL2 的安装
 
-在 Windows 上安装 WSL[^wslinstall] 只需要在 PowerShell 或 Windows 命令提示符使用如下命令
-[^wslinstall]: [使用 WSL 在 Windows 上安装 Linux](https://learn.microsoft.com/zh-cn/windows/wsl/install#step-1---enable-the-windows-subsystem-for-linux)
-
-```powershell
-wsl --install
+在 Windows 上启动 `适用于 Linux 的 Windows 子系统` 功能, 使用以下命令可以列出
+可以安装的发行版:
+```cmd
+wsl --list --online
 ```
-
-运行如图所示
-
-![alt=WSL安装信息](../imgs/wsl_install_info.png)
-
-根据提示重启计算机后, WSL 会自动启动
-
-![alt=创建用户](../imgs/wsl_create_username.png)
-
-依次输入创建的用户名和密码, 就成功的登入了 WSL 系统.
+以安装 Ubuntu-24.04 发行版为例, 使用以下命令:
+```cmd
+wsl --install -d Ubuntu-24.04
+```
+依次输入创建的用户名和密码, 就成功的登入了 WSL2 系统.
 
 # WSL 迁移
 
-WSL2 的磁盘文件默认存储在 C 盘, 位于 `C:\Users\UserName\AppData\Local\Packages\` 文件夹中, 可以从中找到一个含 `Ubuntu` 的文件夹. 当在 WSL 中安装大量软件时, 这对 C 盘的磁盘容量是一个巨大考验. 所以考虑将其迁移至其他盘[^wslmv2D].
-[^wslmv2D]: [2.迁移wsl2子系统文件目录](https://juejin.cn/post/7024498662935904269).
+WSL2 的磁盘文件默认存储在 C 盘, 位于 `C:\Users\UserName\AppData\Local\Packages\`
+文件夹中. 当在 WSL2 中安装大量软件时, 这对 C 盘的磁盘容量是一个巨大考验.
 
-如果 WSL 还在运行的话需要在 PowerShell 或 Windows 命令提示符中输入
-
-```powershell
+* 首先将正在运行的系统关机:
+```cmd
 wsl --shutdown
 ```
+* 可以使用 `wsl --list -v` 命令查看子系统状态. 在子系统关闭情况下导出全部文件:
+```cmd
+wsl --export Ubuntu-24.04 D:\Ubuntu2404
+```
+其中 `--export` 选项后的第一个参数表示子系统的名称, 这个可以在 `wsl --list -v` 
+命令中查看; 后面跟的路径名称便是导出文件存储的名称.
 
-关闭后可以通过 `wsl -l -v` 命令查看状态. 确定关闭了 WSL, 便可以导出子系统的文件
-
-```powershell
-wsl --export Ubuntu D:\WSL2tar
+* 导出成功后, 注销子系统:
+```cmd
+wsl --unregister Ubuntu-24.04
+```
+* 最后, 再将子系统的文件导入到新的位置, 如 `D:\WSL2\Ubuntu2404`
+```cmd
+wsl --import Ubuntu-24.04 D:\WSL2\Ubuntu2404 D:\Ubuntu2404
+```
+如果迁移后以 `root` 用户运行, 可以设置默认用户:
+```cmd
+Ubuntu-24.04 config --default-user username
 ```
 
-其中 `--export` 选项后的第一个参数表示子系统的名称, 这个可以在前面 `wsl -l -v` 这个命令中看到. 后面跟的路径名称便是导出文件存储的名称.
+# WSL2 配置
 
-导出成功后, 可以把原来的子系统注销
+WSL2 配置当前发行版的文件为 `/etc/wsl.conf`.
 
-```powershell
-wsl --unregister Ubuntu
-```
+## Windows 软件交互
 
-注销成功, 再将子系统的文件导入到新的位置, 如 `D:\WSL2`
-
-```powershell
-wsl --import Ubuntu D:\WSL2 D:\WSL2tar
-```
-
-这样迁移过程就完成了, 重新启动便能运行.
-
-但这样直接打开子系统会以 `root` 用户运行, 如果之前不是使用的 `root` 用户会找不到原来的文件. 所以需要设置默认用户
-
-```powershell
-Ubuntu config --default-user username
-```
-
-现在打开终端, 便会回到之前使用的用户了.
-
-# 包管理工具
-
-WSL2 安装的是 Ubuntu 系统, 使用 `apt` 这一包管理工具.
-
-想要查找可以安装的软件包[^aptsearch] 可使用如下命令
-[^aptsearch]: [Ubuntu系统如何搜索要安装的软件包](https://blog.csdn.net/aaa123524457/article/details/96865138).
-
-```bash
-apt search package_name
-```
-
-如果想要显示软件包的详细信息, 使用如下命令
-
-```bash
-apt show package_name
-```
-
-升级某一具体的软件包, 可以使用如下命令:
-
-```bash
-apt install --only-upgrade package_name
+`[interop]` 标签下可以设置 `enabled` 和 `appendWindowsPath` 来控制是否可以运行
+Windows 进程以及添加 Windows 的环境变量. 为了不影响 Windows 和 WSL2 之间冲突,
+均将其设置为 `false`, 重启后生效.
+```conf
+[interop]
+enabled = false
+appendWindowsPath = false
 ```
 
 # USB 设备
 
-我的电脑有两个盘, 平时使用 USB 设备存储一些文件, 但是 WSL2 默认不显示 USB 设备, 这需要挂载 USB 设备[^wslusb].
-[^wslusb]: [WSL2挂载USB设备](https://blog.csdn.net/qq_59475883/article/details/123314000).
+但是 WSL2 默认不显示 USB 设备, 需要单独挂载 USB 设备.
 
-1. 首先建一个用来挂载 USB 设备里面文件的文件夹
-
+1. 首先创建用来挂载 USB 设备的文件夹
 ```bash
 sudo mkdir /mnt/e
 ```
-
 2. 挂载
-
 ```bash
 sudo mount -t drvfs E: /mnt/e
 ```
 
-这样就可以在 WSL2 中访问 USB 设备了.
-
 # Editor
 
-WSL2 中是可以直接输入 `code` 命令打开 VS Code 编辑器的 (Windows 下 VS Code 已安装). 这里使用 Neovim 作为主要的编辑器, 相关的笔记见 [Neovim](../Applications/Neovim.md). 
+在 WSL2 中使用 Neovim 编辑文件最常遇到的问题就是 `yy` 命令复制的内容无法在
+Windows 下使用, 反过来 Windows 下复制的内容虽然不能通过 `p` 粘贴, 但在插入模式下
+可以通过 `<Ctrl>+V` 进行粘贴. 所以需要解决的是 WSL2 中的 Neovim 和 Windows 剪贴板
+之间通信的问题.
 
-在 WSL2 中使用 Neovim 编辑文件最常遇到的问题就是 `yy` 命令复制的内容无法在 Windows 下使用, 反过来 Windows 下复制的内容虽然不能通过 `p` 粘贴, 但在插入模式下可以通过 `<Ctrl>+v` 进行粘贴. 所以需要解决的是 WSL2 中的 Neovim 和 Windows 剪贴板之间通信[^nvimyy2windows] 的问题.
-[^nvimyy2windows]: [Wsl的nvim与Windows系统剪切板通信](https://zhuanlan.zhihu.com/p/450705959).
-
-解决两者的通信需要调用 Windows 的剪贴板将 `yy` 复制的内容传送到 Windows 的剪贴板中. 即使用如下的自动命令:
-
-```lua
-if vim.fn.has('wsl') then
-  vim.cmd [[
-  augroup Yank
-  autocmd!
-  autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
-  augroup END
-  ]]
-end
-```
-
-上述自动命令是通过 vim 配置的, 可以使用 Neovim 提供的 API[^nvimluautocmd] 将上述配置全部转换为使用 `lua` 语言配置.
-[^nvimluautocmd]: [从零开始配置 vim(11)——插件管理](https://zhuanlan.zhihu.com/p/551941252).
-
+解决两者的通信需要调用 Windows 的剪贴板将 `yy` 复制的内容传送到 Windows 的剪贴板
+中.
 ```lua
 if vim.fn.has("wsl") then
     local yank = vim.api.nvim_create_augroup("YANK", { clear = true })
@@ -141,35 +95,27 @@ if vim.fn.has("wsl") then
 end
 ```
 
-这样就实现了 WSL2 中的 Neovim 与 Windows 剪贴板的通信.
-
-Neovim 的配置文件见 [WSL2Neovim](https://gitee.com/runfengtsui/neovim-config).
-
 # Error
 
-1. 错误代码 `Wsl/Service/CreateInstance/0x80040326` 导致无法正常启动子系统. 根据 [Issue #9867](https://github.com/microsoft/WSL/issues/9867), 在 PowerShell 中使用 `wsl --update` 更新子系统即可解决.
+1. 错误代码 `Wsl/Service/CreateInstance/0x80040326` 导致无法正常启动子系统.
+根据 [Issue #9867](https://github.com/microsoft/WSL/issues/9867), 在 PowerShell
+中使用 `wsl --update` 更新子系统即可解决.
 
-2. `/usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link`[^notsymlink].
-[^notsymlink]: [/usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link](https://blog.csdn.net/u011715038/article/details/113733006)
-
+2. `/usr/lib/wsl/lib/libcuda.so.1 is not a symbolic link`.
 `/usr/lib/wsl/lib/` 目录下都是文件而不是链接, 且该目录只读, 只能移到其他目录操作.
-
 ```bash
 cd /usr/lib/wsl
 sudo mkdir lib2
 sudo ln -s lib/* lib2
 sudo ldconfig
 ```
-
-然后编辑文件 `/etc/ld.so.conf.d/ld.wsl.conf` 中的 `/usr/lib/wsl/lib` 修改为 `/usr/lib/wsl/lib2` 即可.
-
-不过更改链接路径在更新驱动之后需要重新链接, 否则 `lib2` 中和 `lib` 中不一致从而导致 WSL 中不可使用 Windows 下的驱动.
-
-以上操作在重启 WSL 会自动还原, 想要不被还原, 还需要修改 `/etc/wsl.conf` 中的设置 `ldconfig` 为 `false`. 这其实在 `/etc/ld.so.conf.d/ld.wsl.conf` 文件中有提示
-
-```
-# This file was automatically generated by WSL. To stop automatic generation of this file, add the following entry to /etc/wsl.conf:
+然后编辑文件 `/etc/ld.so.conf.d/ld.wsl.conf` 中的 `/usr/lib/wsl/lib` 修改为
+`/usr/lib/wsl/lib2` 即可.
+不过更改链接路径在更新驱动之后需要重新链接, 否则 `lib2` 中和 `lib` 中不一致从而
+导致 WSL2 中不可使用 Windows 下的驱动.
+以上操作在重启 WSL 会自动还原, 想要不被还原, 还需要修改 `/etc/wsl.conf` 中的设置
+`ldconfig` 为 `false`. 这其实在 `/etc/ld.so.conf.d/ld.wsl.conf` 文件中有提示
+```conf
 # [automount]
 # ldconfig = false
 ```
-
